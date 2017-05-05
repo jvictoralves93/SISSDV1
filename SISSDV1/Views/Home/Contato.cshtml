@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Contato";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Contato").addClass("active")
+    });
+</script>
+<div class="col-md-12">
+    <div class="card" style="margin-top: 3%; margin-left: -1%; margin-right: -1%;">
+        <div class="card-header" data-background-color="green">
+                @ViewBag.Title  
+        </div>
+        <div class="panel-collapse collapse in">
+            <div class="card-body" style="padding-left: 5%;">
+                <div id="morris-area-example" style="height: 380px;">
+                    <h3>Entre Em contato Conosco</h3>
+                    <p>
+                        Rua Deolinda<br />
+                        Jardim Paulista, RP 14030-280<br />
+                        <abbr title="Phone">P:</abbr>
+                        (16) 3603-9595
+                    </p>
+
+                    <p>
+                        <strong>Desenvolvedor:</strong>   <a href="mailto:joao.alves@sebsa.com.br">joao.alves@sebsa.com.br</a><br />
+                        <strong>Suporte:</strong> <a href="mailto:servicedesk@sebsa.com.br">servicedesk@sebsa.com.br</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

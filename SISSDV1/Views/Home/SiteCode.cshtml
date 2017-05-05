@@ -1,0 +1,16 @@
+﻿@model IEnumerable<SISSDV1.Models.Unidade>
+@{ 
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeUnidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteCode)
+        </td>
+    </tr>
+}

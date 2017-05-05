@@ -1,0 +1,13 @@
+﻿@model IEnumerable<SISSDV1.Models.Computador>
+
+@foreach (var item in Model)
+{    
+    <tr style="cursor: pointer;" class="context-menu-one resultado" id="@item.NomeComputador">
+        <td>
+            @Html.DisplayFor(i => item.NomeComputador)
+        </td>
+        <td>
+            @Html.DisplayFor(i => item.SistemaOperacional)
+        </td>
+    </tr>    
+}

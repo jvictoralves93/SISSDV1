@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SISSDV1.Models.Funcionarios>
+
+
+@foreach (var item in Model)
+{
+    <tr style="cursor: pointer">
+        <td>
+            @Html.DisplayFor(modelItem => item.NOME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CPF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CHAPA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ADMISSAO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DTNASCIMENTO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FILIAL)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.COLIGADA)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.DEPARTAMENTO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SECAO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CARGO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SITUACAO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRICAO)
+        </td>
+    </tr>
+}

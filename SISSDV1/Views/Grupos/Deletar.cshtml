@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Excluir";
+}
+<div class="modal-dialog modal-content card" style="width: 300px; height:200px;">
+    <div class="card-header" data-background-color="green">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+        </button>
+        Excluir
+    </div>
+    <div class="modal-body card-body">
+        @using (Html.BeginForm("DeletarUser", "Users", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <h5>Tem Certeza que deseja Excluir?</h5>
+
+            <div class="row">
+                <div class="">
+                    <div class="pull-right" style="margin-top: 2%;">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cencelar</button>
+                        <input type="submit" value="Confirmar" class="btn btn-primary btn-sm" id="Confirmar" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="modal-footer card-footer">
+    </div>
+</div><!-- /.modal-content -->

@@ -1,0 +1,10 @@
+﻿@model IEnumerable<SISSDV1.Models.GrupoAD>
+
+@foreach (var item in Model)
+{    
+    <tr style="cursor: pointer;" class="context-menu-one resultado">
+        <td>
+            @Html.DisplayFor(i => item.GrupoNome)
+        </td>
+    </tr>    
+}

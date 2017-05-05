@@ -1,0 +1,148 @@
+﻿@model IEnumerable<SISSDV1.Models.Link>
+
+@{
+    ViewBag.Title = "Links";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+if (Request.Cookies["Acesso"] != null)
+{
+<br />
+<p>
+    @Html.ActionLink("Novo Link", "Create", "Links", new { @class = "btn btn-primary btn-sm" })
+</p>
+<!-- Links -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Links
+    </header>
+    <div class="card-body table-responsive">
+        <table class="table table-hover" id="tabela">
+            <thead>
+                <tr class="text-success">
+                    <th width="170px">
+                        @Html.DisplayNameFor(model => model.Operadora.NomeOperadora)
+                    </th>
+                    <th width="220px">
+                        @Html.DisplayNameFor(model => model.Unidade.NomeUnidade)
+                    </th>
+                    <th width="150px">
+                        @Html.DisplayNameFor(model => model.Tipo)
+                    </th>
+                    <th width="200px">
+                        @Html.DisplayNameFor(model => model.Operadora.Contato)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" name="filtroOperadora" class="form-control" placeholder="Operadora" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroUnidade" class="form-control" placeholder="Unidade" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroTipo" class="form-control" placeholder="Tipo" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroContato" class="form-control" placeholder="Contato" />
+                    </td>
+                    <td></td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr style="cursor: pointer" id="resultado" onclick="location.href='Details/'+'@item.IDLink'">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operadora.NomeOperadora)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Unidade.NomeUnidade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operadora.Contato)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.IDLink }, new { @class = "btn btn-primary btn-xs" })
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.IDLink }, new { @class = "btn btn-info btn-xs" })
+                            @Html.ActionLink("Excluir", "Delete", new { id = item.IDLink }, new { @class = "btn btn-danger btn-xs" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+<br />
+}
+else
+{
+<br />
+<!-- Links -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Links
+    </header>
+    <div class="card-body table-responsive">
+        <table class="table table-hover" id="tabela">
+            <thead>
+                <tr class="text-success">
+                    <th width="170px">
+                        @Html.DisplayNameFor(model => model.Operadora.NomeOperadora)
+                    </th>
+                    <th width="220px">
+                        @Html.DisplayNameFor(model => model.Unidade.NomeUnidade)
+                    </th>
+                    <th width="150px">
+                        @Html.DisplayNameFor(model => model.Tipo)
+                    </th>
+                    <th width="200px">
+                        @Html.DisplayNameFor(model => model.Operadora.Contato)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" name="filtroOperadora" class="form-control" placeholder="Operadora" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroUnidade" class="form-control" placeholder="Unidade" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroTipo" class="form-control" placeholder="Tipo" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroContato" class="form-control" placeholder="Contato" />
+                    </td>
+                    <td></td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr style="cursor: pointer" id="resultado" onclick="location.href='Details/'+'@item.IDLink'">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operadora.NomeOperadora)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Unidade.NomeUnidade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operadora.Contato)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+<br />
+}
+}

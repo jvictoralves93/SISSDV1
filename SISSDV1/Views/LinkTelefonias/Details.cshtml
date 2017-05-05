@@ -1,0 +1,47 @@
+﻿@model SISSDV1.Models.LinkTelefonia
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<!-- Section -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        @Model.Operadora.NomeOperadora
+    </header>
+    <div class="card-body table-responsive">
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-success">
+                    <th>@Html.DisplayNameFor(model => model.Operadora.NomeOperadora)</th>
+                    <th>@Html.DisplayNameFor(model => model.Unidade.NomeUnidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.CodigoCliente)</th>
+                    <th>@Html.DisplayNameFor(model => model.DDD)</th>
+                    <th>@Html.DisplayNameFor(model => model.TroncoChave)</th>
+                    <th>@Html.DisplayNameFor(model => model.NumerosPortadosInicio)</th>
+                    <th>@Html.DisplayNameFor(model => model.NumerosPortadosFim)</th>
+                    <th>@Html.DisplayNameFor(model => model.Operadora.Contato)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Operadora.NomeOperadora)</td>
+                    <td>@Html.DisplayFor(model => model.Unidade.NomeUnidade)</td>
+                    <td>@Html.DisplayFor(model => model.CodigoCliente)</td>
+                    <td>@Html.DisplayFor(model => model.DDD)</td>
+                    <td>@Html.DisplayFor(model => model.TroncoChave)</td>
+                    <td>@Html.DisplayFor(model => model.NumerosPortadosInicio)</td>
+                    <td>@Html.DisplayFor(model => model.NumerosPortadosFim)</td>
+                    <td>@Html.DisplayFor(model => model.Operadora.Contato)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IDLinkTelefonia }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

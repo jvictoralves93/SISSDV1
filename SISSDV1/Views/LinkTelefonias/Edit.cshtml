@@ -1,0 +1,102 @@
+﻿@model SISSDV1.Models.LinkTelefonia
+
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Request.Cookies["Acesso"] == null)
+    {
+        Response.Redirect("Index");
+    }
+}
+
+<br />
+<div class="card">
+    <header class="card-header" data-background-color="green">
+        Editar Link
+    </header>
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "LinkTelefonias", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IDLinkTelefonia)
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.IDOperadora, "Operadora", htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("IDOperadora", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IDOperadora, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.DDD, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.DDD, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DDD, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.TroncoChave, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.TroncoChave, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TroncoChave, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.CodigoCliente, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CodigoCliente, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CodigoCliente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.NumerosPortadosInicio, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NumerosPortadosInicio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NumerosPortadosInicio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.NumerosPortadosFim, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NumerosPortadosFim, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NumerosPortadosFim, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.IDUnidade, "Unidade", htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("IDUnidade", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IDUnidade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12" style="margin-top: 2%">
+                    <div class="pull-right">
+                        @Html.ActionLink("Voltar", "Index", "LinkUnidades", new { @class = "btn btn-danger btn-sm" })
+                        <input type="submit" value="Salvar" class="btn btn-primary btn-sm" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+@section Scripts {
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script>
+            $('#DDD').mask('00');
+            $('#TroncoChave').mask('0000-0000');
+            $('#NumerosPortadosInicio').mask('0000-0000');
+            $('#NumerosPortadosFim').mask('0000-0000');
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

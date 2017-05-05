@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Script para setar a opção selecionada como ativa -->
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Inicio").addClass("active");
+        $("#footer").css("margin-bottom", "0");
+    });
+</script>
+<meta charset="utf-8" />
+<!-- Início Página -->
+<div class="wraper container-fluid" lang="pt-br">
+    <div class="page-title">
+        <h3 lang="pt-br">Bem Vindo @Request.Cookies["NomeCompleto"].Value</h3>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                    @Html.ActionLink("Funcionários", "Index", "Funcionarios")
+                    <div class="clearfix"></div>
+                </div>
+                <div id="portlet2" class="panel-collapse collapse in">
+                    <div class="card-body" style="height:140px;">
+                        @Html.Action("ResumoFuncionarios")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                    Usuários
+                    <div class="clearfix"></div>
+                </div>
+                <div id="portlet2" class="panel-collapse collapse in">
+                    <div class="card-body" style="height:140px;">
+                        @Html.Action("ResumoUsuariosAD")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                    Computadores
+                    <div class="clearfix"></div>
+                </div>
+                <div id="portlet2" class="panel-collapse collapse in">
+                    <div class="card-body" style="height:140px;">
+                        @Html.Action("ResumoComputadoresAD")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                    Unidades
+                    <div class="clearfix"></div>
+                </div>
+                <div id="portlet2" class="panel-collapse collapse in">
+                    <div class="card-body" style="height:140px;">
+                        @Html.Action("ResumoUnidades")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header" data-background-color="green">
+                Aniversariantes de Mês
+                <div class="clearfix"></div>
+            </div>
+            <div id="portlet2" class="panel-collapse collapse in">
+                <div class="card-body">
+                    <br />
+                    <div id="morris-area-example" style="height: 320px; text-align: center; overflow-y: auto">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr class="text-success">
+                                        <th>Nome</th>
+                                        <th>Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @Html.Action("Aniversariantes")
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                        Links Uteis
+                    <div class="clearfix"></div>
+                </div>
+                <div id="portlet2" class="panel-collapse collapse in">
+                    <div class="card-body">
+                        <br />
+                        @Html.Partial("~/Views/Shared/LinksUteis.cshtml")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                        Escala de Sábado
+                    <div class="clearfix"></div>
+                </div>
+                <div id="portlet2" class="panel-collapse collapse in">
+                    <div class="card-body">   
+                        <br />                     
+                        <div id="morris-area-example" style="height: 320px; text-align: center;">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-success">
+                                        <tr>
+                                            <th>Analista</th>
+                                            <th>Data</th>                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       @Html.Action("Escala")
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                    Sites Code
+                    <div class="clearfix"></div>
+                </div>
+                <div id="portlet2" class="panel-collapse collapse in">
+                    <div class="card-body" style="height:340px; overflow-y:auto">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr class="text-success">
+                                        <th>Unidade</th>
+                                        <th>Site Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @Html.Action("SiteCode")
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>                
+    </div>
+</div>
+<br />

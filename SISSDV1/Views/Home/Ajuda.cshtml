@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Ajuda";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+<script>
+    document.body.style.background = "#fff";
+</script>
+<div style="padding-top: 5%;">
+    <h2>Ajuda</h2>
+    Está Com dúvidas? Nos envie um email:
+
+    <address>
+        <strong>Equipe de Suporte:</strong>   <a href="mailto:servicedesk@sebsa.com.br">servicedesk@sebsa.com.br</a><br />
+        <strong>Desenvolvedor:</strong> <a href="mailto:joao.alves@sebsa.com.br">joao.alves@sebsa.com.br</a>
+    </address>
+
+    @Html.ActionLink("Voltar", "Login", "Home")
+</div>

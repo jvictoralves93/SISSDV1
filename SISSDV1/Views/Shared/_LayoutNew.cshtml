@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="pt-br">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/img/ico.png">
+    <title>@ViewBag.Title - Intranet</title>
+    @Styles.Render("~/Content/css1")
+    @Styles.Render("~/Content/logincss")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/material-dashboard.css" />
+</head>
+<body class="fundo">
+    <div class="navbar-inverse navbar-fixed-top" style="background-color: #302f31">
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav pull-right">
+                    <li>@Html.ActionLink("Ajuda", "Ajuda", "Home", new { @class = "" })</li>
+                </ul>
+            </div>
+    </div>
+    <div class="container body-content col-md-12">
+        @RenderBody()       
+    </div>
+    
+    <footer class="footer text-center navbar-fixed-bottom" 
+            style="background-color:#ffffff; padding: 15px; border-top: 1px solid black">
+        <p>&copy; 2017 - João Victor de Sá Alves</p>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/bootstrapmd")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<SISSDV1.Models.EscalaSabado>
+
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.start.Day)/@Html.DisplayFor(modelItem => item.start.Month)
+        </td>
+    </tr>
+}
+

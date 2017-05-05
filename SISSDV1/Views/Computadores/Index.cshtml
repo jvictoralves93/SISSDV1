@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Computadores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<!-- Form de Pesquisa -->
+<div class="form-group">
+    <label class="control-label">Digite o Nome do Computador</label>
+    <input type="text" id="computadores" name="computadores"
+           placeholder="Digite o host..." class="form-control"
+           style="width: 100%" onkeypress="Click();">
+</div>
+
+<p>
+    <button class="btn btn-primary btn-sm novo">Novo Computador</button>
+</p>
+
+<!-- Tabela de listagem dos usuários -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Computadores
+    </header>
+    <div class="panel-body table-responsive">
+        <table class="table table-condensed">
+            <thead>
+                <tr class="text-success">
+                    <th>
+                        Nome do Computador
+                    </th>
+                    <th>
+                        Sistema Operacional
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="Resultadocomputer">
+                @{
+                    Html.RenderPartial("Resultado");
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+<br />
+
+<!-- Madal's -->
+<div class="container">
+    <div class="modal right fade" id="modalNovo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("Novo")
+    </div>
+</div>
+<div class="container">
+    <div class="modal right fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("Detalhes")
+    </div>
+</div>
+<div class="container">
+    <div class="modal right fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("Editar")
+    </div>
+</div>
+<div class="container">
+    <div class="modal" id="modalReset">
+        @Html.Action("Resetar")
+    </div>
+</div>
+<div class="container">
+    <div class="modal" id="modalDelete">
+        @Html.Action("Deletar")
+    </div>
+</div>
+<div class="container">
+    <div class="modal" id="modalSucesso">
+        @Html.Action("Sucesso")
+    </div>
+</div>
+<!-- Fim Modal's -->
+<!-- Chama os Modals -->
+@section scripts{
+    <script src="~/Scripts/menucomputadores.js"></script>
+    <script>
+        $(document).ready(function () {
+            BuscarComputador();
+        });
+    </script>
+}

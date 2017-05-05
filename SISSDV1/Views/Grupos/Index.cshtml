@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Grupos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<!-- Form de Pesquisa -->
+<div class="form-group">
+    <label class="control-label">Digite o Nome do Grupo</label>
+    <input type="text" id="grupos" name="grupos"
+           placeholder="Digite o Grupo..." class="form-control"
+           style="width: 100%" onkeypress="Click();">
+</div>
+
+<p>
+    <button class="btn btn-primary btn-sm novo">Novo Grupo</button>
+</p>
+
+<!-- Tabela de listagem dos usuários -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Grupos
+    </header>
+    <div class="card-body table-responsive">
+        <table class="table table-condensed">
+            <thead>
+                <tr class="text-success">
+                    <th>
+                        Nome do Grupo
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="ResultadoGrupo">
+                @{
+                    Html.RenderPartial("Resultado");
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+<br />
+
+<!-- Madal's -->
+<div class="container">
+    <div class="modal right fade" id="modalNovo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("Novo")
+    </div>
+</div>
+<div class="container">
+    <div class="modal right fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("Detalhes")
+    </div>
+</div>
+<div class="container">
+    <div class="modal right fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("Editar")
+    </div>
+</div>
+<div class="container">
+    <div class="modal" id="modalDelete">
+        @Html.Action("Deletar")
+    </div>
+</div>
+<div class="container">
+    <div class="modal" id="modalSucesso">
+        @Html.Action("Sucesso")
+    </div>
+</div>
+<!-- Fim Modal's -->
+<!-- Chama os Modals -->
+@section scripts{
+    <!-- Validação -->
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/menucontexto.js"></script>
+    <script>
+        $(document).ready(function () {
+            BuscarGrupo();
+        });
+    </script>
+}

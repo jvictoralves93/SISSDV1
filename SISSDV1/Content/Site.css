@@ -1,0 +1,156 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.desativar{
+    display: none;
+}
+
+h1,h2,h3,h4,h5,h6{
+    color: #332e2e;
+}
+p{
+    color: #332e2e;
+}
+th, td, tr {
+    text-align: left;
+    vertical-align: middle;
+}
+
+tr:hover, tr:active{
+    background-color: rgba(33, 235, 61, 0.27);
+}
+
+.dropdown.btn-group.open{
+    background: rgba(4, 138, 23, 0.78);
+}
+
+.pagination>.active>a,.pagination>.active>span,.pagination>.active>a:hover,.pagination>.active>span:hover,.pagination>.active>a:focus,.pagination>.active>span:focus {
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+
+
+/*******************************
+* MODAL AS LEFT/RIGHT SIDEBAR
+* Add "left" or "right" in modal parent div, after class="modal".
+* Get free snippets on bootpen.com
+*******************************/
+.modal.left .modal-dialog,
+.modal.right .modal-dialog {
+	position: fixed;
+	margin: auto;
+	width: 800px;
+	height: 100%;
+	-webkit-transform: translate3d(0%, 0, 0);
+		-ms-transform: translate3d(0%, 0, 0);
+		    -o-transform: translate3d(0%, 0, 0);
+		    transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content,
+.modal.right .modal-content{
+	height: 100%;
+	overflow-y: auto;
+}
+
+/* Important part */
+.modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+    height: 550px;
+    overflow-y: auto;
+}
+	
+
+/*Left*/
+.modal.left.fade .modal-dialog{
+	left: -320px;
+	-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+		-moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+		    -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+		    transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+	
+.modal.left.fade.in .modal-dialog{
+	left: 0;
+}
+        
+/*Right*/
+.modal.right.fade .modal-dialog {
+	right: -320px;
+	-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+		-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+		    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+		    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+	
+.modal.right.fade.in .modal-dialog {
+	right: 0;
+}
+
+
+
+/* Centralizar Modal */
+.modal {
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;  
+}
+
+@media screen and (max-width: 768px) {
+    .contentmodal {
+        width: 500px;
+        left: 330px;        
+    }
+}
+
+/*Calendário*/
+
+#external-events {
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    background: #fff;
+    text-align: left;
+}
+
+#external-events h4 {
+    font-size: 14px;
+    margin-top: 0;
+    padding-top: 1em;
+}
+
+#external-events .fc-event {
+    margin: 10px 0;
+    cursor: move;
+}
+
+#external-events p {
+    margin: 1.5em 0;
+    color: #666;
+}
+
+#external-events p input {
+    margin: 0;
+    vertical-align: middle;
+}

@@ -1,0 +1,152 @@
+﻿@model SISSDV1.Models.User
+@{
+    Layout = null;
+    ViewBag.Title = "Novo Usuário";
+}
+<div class="modal-dialog card" role="document" style="margin-top: 4%;">
+    <div class="contentmodal">
+        <div class="card-header" data-background-color="green">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+            </button>
+            Novo Usuário
+        </div>
+        <div class="modal-body card-body">
+            <form id="form-user" method="post">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", id = "nome" } })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-8">
+                        @Html.LabelFor(model => model.Sobrenome, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Sobrenome, new { htmlAttributes = new { @class = "form-control", id = "sobrenome" } })
+                        @Html.ValidationMessageFor(model => model.Sobrenome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.DiaInicio, "DiaInicio", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("DiaInicio", null, htmlAttributes: new { @class = "form-control", id = "diainicio" })
+                        @Html.ValidationMessageFor(model => model.DiaInicio, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.DiaFim, "DiaFim", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("DiaFim", null, htmlAttributes: new { @class = "form-control", id = "diafim" })
+                        @Html.ValidationMessageFor(model => model.DiaFim, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.HorarioInicio, "HorarioInicio", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("HorarioInicio", null, htmlAttributes: new { @class = "form-control", id = "horarioinicio" })
+                        @Html.ValidationMessageFor(model => model.HorarioInicio, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.HorarioFim, "HorarioFim", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("HorarioFim", null, htmlAttributes: new { @class = "form-control", id = "horariofim" })
+                        @Html.ValidationMessageFor(model => model.HorarioFim, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="row form-group form-group-sm">
+                        <div class="col-md-12">
+                            <input type="checkbox" name="horariofull" class="" id="horariofull"/>
+                            <label for="horariofull" class="">Sem Restrição de Horário</label>
+                        </div>
+                    </div>*@
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", id = "Usuario", onblur = "VerificarUsuario();", onkeypress = "digitando();" } })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        <div id="validacao"></div>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Cargo, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Cargo, new { htmlAttributes = new { @class = "form-control", id = "cargo" } })
+                        @Html.ValidationMessageFor(model => model.Cargo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.SubDepartamento, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.SubDepartamento, new { htmlAttributes = new { @class = "form-control", id = "subdepartamento" } })
+                        @Html.ValidationMessageFor(model => model.SubDepartamento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @class = "form-control", id = "telefone" } })
+                        @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control", id = "cpf" } })
+                        @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Chapa, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Chapa, new { htmlAttributes = new { @class = "form-control", id = "chapa" } })
+                        @Html.ValidationMessageFor(model => model.Chapa, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", id = "senha" } })
+                        @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.ConfirmarSenha, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.ConfirmarSenha, new { htmlAttributes = new { @class = "form-control", id = "confsenha" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmarSenha, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Cidade, "Cidade", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("cidade", null, htmlAttributes: new { @class = "form-control", @onfocus = "FiltrarUnidade();", @onchange = "FiltrarUnidade();", @onload = "FiltrarUnidade();" })
+                        @Html.ValidationMessageFor(model => model.Cidade, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Unidade, "Unidade", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("unidade", null, htmlAttributes: new { @class = "form-control", @onfocus = "FiltrarDepartamento();", @onchange = "FiltrarDepartamento();", @onload = "FiltrarDepartamento();" })
+                        @Html.ValidationMessageFor(model => model.Unidade, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Departamento, "Departamento", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("departamento", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Departamento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group form-black label-floating is-empty">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fechar</button>
+                            <input type="submit" class="btn btn-primary btn-sm" id="salvar" value="Salvar" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<!-- Filtros -->
+<script src="~/Scripts/jquery2.0.2.js"></script>
+<script>
+    $(document).ready(function () {
+        FiltrarCidade();
+        $('#horariofull').change(function () {
+            $('#horarioinicio').attr('disabled', 'disabled').val("00:00");
+            $('#horariofim').attr('disabled', 'disabled').val("00:00");
+            $('#diainicio').attr('disabled', 'disabled').val("Domingo");
+            $('#diafim').attr('disabled', 'disabled').val("Sábado");
+        });
+    });
+</script>
+
+<!-- Validação -->
+@Scripts.Render("~/bundles/jqueryval")

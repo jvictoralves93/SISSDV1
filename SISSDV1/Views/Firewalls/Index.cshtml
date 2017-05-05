@@ -1,0 +1,167 @@
+﻿@model IEnumerable<SISSDV1.Models.Firewall>
+@{
+    ViewBag.Title = "Firewalls";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+if (Request.Cookies["Acesso"] == null)
+{
+<!-- Tecnicos -->
+<br />
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Firewalls
+    </header>
+    <div class="card-body table-responsive">
+        <table class="table table-hover" id="tabela">
+            <thead>
+                <tr class="text-success">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Unidade.Cidade)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Unidade.NomeUnidade)
+                    </th>
+                    <th width="100px">
+                        @Html.DisplayNameFor(model => model.Modelo)
+                    </th>
+                    <th width="130px">
+                        @Html.DisplayNameFor(model => model.AcessoInterno)
+                    </th>
+                    <th width="130px">
+                        @Html.DisplayNameFor(model => model.AcessoExterno)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" name="filtroCidade" class="form-control" placeholder="Cidade" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroUnidade" class="form-control" placeholder="Unidade" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroModelo" class="form-control" placeholder="Modelo" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroInterno" class="form-control" placeholder="Interno" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroExterno" class="form-control" placeholder="Externo" />
+                    </td>
+                    <td></td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr style="cursor: pointer" id="resultado" onclick="location.href='Details/'+'@item.IDFirewall'">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Unidade.Cidade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Unidade.NomeUnidade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Modelo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AcessoInterno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AcessoExterno)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+<br />
+}
+else
+{
+<br />
+<p>
+    @Html.ActionLink("Novo Firewall", "Create", "Firewalls", new { @class = "btn btn-primary btn-sm bloqueio" })
+</p>
+<!-- Tecnicos -->
+<br />
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Firewalls
+    </header>
+    <div class="card-body table-responsive">
+        <table class="table table-hover" id="tabela">
+            <thead>
+                <tr class="text-success">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Unidade.Cidade)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Unidade.NomeUnidade)
+                    </th>
+                    <th width="100px">
+                        @Html.DisplayNameFor(model => model.Modelo)
+                    </th>
+                    <th width="130px">
+                        @Html.DisplayNameFor(model => model.AcessoInterno)
+                    </th>
+                    <th width="130px">
+                        @Html.DisplayNameFor(model => model.AcessoExterno)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" name="filtroCidade" class="form-control" placeholder="Cidade" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroUnidade" class="form-control" placeholder="Unidade" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroModelo" class="form-control" placeholder="Modelo" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroInterno" class="form-control" placeholder="Interno" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroExterno" class="form-control" placeholder="Externo" />
+                    </td>
+                    <td></td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr style="cursor: pointer" id="resultado" onclick="location.href='Details/'+'@item.IDFirewall'">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Unidade.Cidade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Unidade.NomeUnidade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Modelo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AcessoInterno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AcessoExterno)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.IDFirewall }, new { @class = "btn btn-primary btn-xs bloqueio" })
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.IDFirewall }, new { @class = "btn btn-info btn-xs" })
+                            @Html.ActionLink("Excluir", "Delete", new { id = item.IDFirewall }, new { @class = "btn btn-danger btn-xs bloqueio" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+<br />
+}
+}

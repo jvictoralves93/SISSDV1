@@ -1,0 +1,14 @@
+﻿@model IEnumerable<SISSDV1.Models.Funcionarios>
+
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DTNASCIMENTO.Day)/@Html.DisplayFor(modelItem => item.DTNASCIMENTO.Month)
+        </td>        
+    </tr>
+}

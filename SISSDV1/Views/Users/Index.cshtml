@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Usuários";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Form de Pesquisa dos Usuários -->
+<div class="form-group">
+    <label class="control-label">Digite o Usuário</label>
+    <input type="text" id="usuarios" name="usuarios"
+           placeholder="Digite o nome, usuário ou cargo..." class="form-control"
+           style="width: 100%" onkeypress="Click();">
+</div>
+
+<p>
+    <button class="btn btn-primary btn-sm novo">Novo Usuário</button>
+</p>
+
+
+<!-- Tabela de listagem dos usuários -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Usuários
+    </header>
+    <div class="table-responsive card-body">
+        <table class="table table-condensed" id="grid-basic">
+            <thead>
+                <tr class="text-success">
+                    <th data-column-id="NomeExibicao">
+                        Nome Completo
+                    </th>
+                    <th data-column-id="Email">
+                        Email
+                    </th>
+                    <th data-column-id="Cargo">
+                        Cargo
+                    </th>
+                    <th data-column-id="StatusTexto">
+                        Status
+                    </th>
+                    <th data-column-id="commands" data-formatter="commands" data-sortable="false">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="Resultado">                
+                    @{
+                        Html.RenderPartial("Resultado");
+                    }
+            </tbody>
+        </table>
+    </div>
+</section>
+<br />
+
+<!-- Madal's -->
+<div class="container">
+    <div class="modal right fade" id="modalNovo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("NovoUsuario")
+    </div>
+</div>
+@*<div class="container">
+    <div class="modal right fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("DetalhesUsuario")
+    </div>
+</div>
+<div class="container">
+    <div class="modal right fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("Editar")
+    </div>
+</div>
+<div class="container">
+    <div class="modal" id="modalReset">
+        @Html.Action("ResetarSenha")
+    </div>
+</div>*@
+<div class="container">
+    <div class="modal" id="modalDelete">
+        @Html.Action("Deletar")
+    </div>
+</div>
+<div class="container">
+    <div class="modal" id="modalVerificar">
+        @Html.Action("Verificar")
+    </div>
+</div>
+<div class="container">
+    <div class="modal" id="modalSucesso">
+        @Html.Action("Sucesso")
+    </div>
+</div>
+<!-- Fim Modal's -->
+
+<!-- Chama os Modals -->
+@section scripts{
+    <link rel="stylesheet" href="~/Content/jquery.bootgrid.css" />
+    <script src="~/Scripts/jquery.bootgrid.js"></script>
+    <script src="~/Scripts/menucontexto.js"></script>
+    <script>
+        $(document).ready(function () {
+            Buscar();
+        });
+    </script>
+}
+
+

@@ -1,0 +1,178 @@
+﻿@model SISSDV1.Models.Unidade
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<!-- Unidade Section -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        @Model.NomeUnidade
+    </header>
+    <div class="card-body table-responsive">
+        
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-success">
+                    <th>@Html.DisplayNameFor(model => model.Cidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.NomeUnidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.TelefoneUnidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.SiteCode)</th>
+                    <th>@Html.DisplayNameFor(model => model.Endereco)</th>
+                    <th>@Html.DisplayNameFor(model => model.RazaoSocial)</th>
+                    <th>@Html.DisplayNameFor(model => model.CNPJ)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Cidade)</td>
+                    <td>@Html.DisplayFor(model => model.NomeUnidade)</td>
+                    <td>@Html.DisplayFor(model => model.TelefoneUnidade)</td>
+                    <td>@Html.DisplayFor(model => model.SiteCode)</td>
+                    <td>@Html.DisplayFor(model => model.Endereco)</td>
+                    <td>@Html.DisplayFor(model => model.RazaoSocial)</td>
+                    <td>@Html.DisplayFor(model => model.CNPJ)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Link Section -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Links Internet
+    </header>
+    <div class="card-body table-responsive">
+    
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-success">
+                    <th>Operadora</th>
+                    <th>Designação</th>
+                    <th>Código do Cliente</th>
+                    <th>Capacidade</th>
+                    <th>Tipo</th>
+                    <th>Contato</th>
+                </tr>
+            </thead>
+            @foreach (var link in Model.Links)
+            {
+            <tbody>
+                <tr>
+                    <td>@link.Operadora.NomeOperadora</td>
+                    <td>@link.Designacao</td>
+                    <td>@link.CodigoCliente</td>
+                    <td>@link.Capacidade</td>
+                    <td>@link.Tipo</td>
+                    <td>@link.Operadora.Contato</td>
+                </tr>
+            </tbody>
+            }
+        </table>
+    
+    </div>
+
+</section>
+
+<!-- Link Telefonia -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Links Telefonia
+    </header>
+    <div class="card-body table-responsive">
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-success">
+                    <th>Operadora</th>
+                    <th>DDD</th>
+                    <th>Tronco Chave</th>
+                    <th>Código Cliente</th>
+                    <th>Numeros Portados Inicio</th>
+                    <th>Numeros Portados Fim</th>
+                    <th>Contato</th>
+                </tr>
+            </thead>
+            @foreach (var linkt in Model.LinkTelefonias)
+            {
+                <tbody>
+                    <tr>
+                        <td>@linkt.Operadora.NomeOperadora</td>
+                        <td>@linkt.DDD</td>
+                        <td>@linkt.TroncoChave</td>
+                        <td>@linkt.CodigoCliente</td>
+                        <td>@linkt.NumerosPortadosInicio</td>
+                        <td>@linkt.NumerosPortadosFim</td>
+                        <td>@linkt.Operadora.Contato</td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</section>
+
+<!-- Firewalls -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Firewall
+    </header>
+    <div class="card-body table-responsive">
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-success">
+                    <th>Cidade</th>
+                    <th>Unidade</th>
+                    <th>Modelo</th>
+                    <th>Acesso Interno</th>
+                    <th>Acesso Externo</th>
+                </tr>
+            </thead>
+            @foreach (var fire in Model.Firewalls)
+            {
+                <tbody>
+                    <tr>
+                        <td>@fire.Unidade.Cidade</td>
+                        <td>@fire.Unidade.NomeUnidade</td>
+                        <td>@fire.Modelo</td>
+                        <td>@fire.AcessoInterno</td>
+                        <td>@fire.AcessoExterno</td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</section>
+
+<!-- Tecnicos Section -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Tecnicos
+    </header>
+    <div class="card-body table-responsive">
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-success">
+                    <th>Tecnico</th>
+                    <th>Celular</th>
+                    <th>Ramal</th>
+                </tr>
+            </thead>
+            @foreach (var tecnicos in Model.Tecnicos)
+            {
+                <tbody>
+                    <tr>
+                        <td>@tecnicos.NomeTecnico</td>
+                        <td>@tecnicos.Celular</td>
+                        <td>@tecnicos.Ramal</td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</section>
+<br />

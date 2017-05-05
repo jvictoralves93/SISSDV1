@@ -1,0 +1,24 @@
+﻿@model IEnumerable<SISSDV1.Models.Unidade>
+
+@foreach (var item in Model)
+{
+    <tr style="cursor: pointer" id="resultado" onclick="location.href='Details/'+'@item.IDUnidade'">
+        <td>
+            @Html.DisplayFor(modelItem => item.Cidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeUnidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelefoneUnidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteCode)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.IDUnidade }, new { @class = "btn btn-primary btn-xs" })
+            @Html.ActionLink("Detalhes", "Details", new { id = item.IDUnidade }, new { @class = "btn btn-info btn-xs" })
+            @Html.ActionLink("Excluir", "Delete", new { id = item.IDUnidade }, new { @class = "btn btn-danger btn-xs" })
+        </td>
+    </tr>
+}

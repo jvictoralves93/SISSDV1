@@ -1,0 +1,112 @@
+﻿@model IEnumerable<SISSDV1.Models.Operadora>
+
+@{
+    ViewBag.Title = "Operadoras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+if (Request.Cookies["Acesso"] != null)
+{
+<br />
+<p>
+    @Html.ActionLink("Nova Operadora", "Create", "Operadoras", new { @class = "btn btn-primary btn-sm" })
+</p>
+<!-- Section -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Operadoras
+    </header>
+    <div class="card-body table-responsive">
+        <table class="table table-hover" id="tabela">
+            <thead>
+                <tr class="text-success">
+                    <th>
+                        @Html.DisplayNameFor(model => model.NomeOperadora)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Contato)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" name="filtroOperadora" class="form-control" placeholder="Operadora" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroContato" class="form-control" placeholder="Contato" />
+                    </td>
+                    <td></td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr style="cursor: pointer" id="resultado" onclick="location.href='Details/'+'@item.IDOperadora'">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomeOperadora)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contato)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.IDOperadora }, new { @class = "btn btn-primary btn-xs" })
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.IDOperadora }, new { @class = "btn btn-info btn-xs" })
+                            @Html.ActionLink("Excluir", "Delete", new { id = item.IDOperadora }, new { @class = "btn btn-danger btn-xs" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+<br />
+}
+else
+{
+<br />
+<!-- Section -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Operadoras
+    </header>
+    <div class="card-body table-responsive">
+        <table class="table table-hover" id="tabela">
+            <thead>
+                <tr class="text-success">
+                    <th>
+                        @Html.DisplayNameFor(model => model.NomeOperadora)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Contato)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" name="filtroOperadora" class="form-control" placeholder="Operadora" />
+                    </td>
+                    <td>
+                        <input type="text" name="filtroContato" class="form-control" placeholder="Contato" />
+                    </td>
+                    <td></td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr style="cursor: pointer" id="resultado" onclick="location.href='Details/'+'@item.IDOperadora'">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomeOperadora)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contato)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+<br />
+}
+}

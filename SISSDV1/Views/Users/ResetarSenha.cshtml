@@ -1,0 +1,47 @@
+﻿@model SISSDV1.Models.User
+@{
+    Layout = null;
+    ViewBag.Title = "Resetar Senha";
+}
+<div class="modal-dialog modal-content card" style="width: 400px; height:300px;">
+    <div class="card-header" data-background-color="green">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+        </button>
+        Resetar Senha
+    </div>
+    <div class="modal-body card-body">
+        <form id="form-resetsenha" method="post">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.Username)
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", id = "senhanova" } })
+                    @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.ConfirmarSenha, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ConfirmarSenha, new { htmlAttributes = new { @class = "form-control", id = "confsenha" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmarSenha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right" style="margin-top: 2%;">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cencelar</button>
+                        <input type="submit" value="Confirmar" class="btn btn-primary btn-sm" id="confirmar" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer card-footer">
+    </div>
+</div><!-- /.modal-content -->
+<!-- Validação -->
+@Scripts.Render("~/bundles/jqueryval")

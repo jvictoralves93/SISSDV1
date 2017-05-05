@@ -1,0 +1,46 @@
+﻿@model SISSDV1.Models.Firewall
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<!-- Section -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        @Model.Modelo
+    </header>
+    <div class="card-body table-responsive">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Unidade.Cidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.Unidade.NomeUnidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.Modelo)</th>
+                    <th>@Html.DisplayNameFor(model => model.Licenca)</th>
+                    <th>@Html.DisplayNameFor(model => model.AcessoInterno)</th>
+                    <th>@Html.DisplayNameFor(model => model.AcessoExterno)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Unidade.Cidade)</td>
+                    <td>@Html.DisplayFor(model => model.Unidade.NomeUnidade)</td>
+                    <td>@Html.DisplayFor(model => model.Modelo)</td>
+                    <td>@Html.DisplayFor(model => model.Licenca)</td>
+                    <td>@Html.DisplayFor(model => model.AcessoInterno)</td>
+                    <td>@Html.DisplayFor(model => model.AcessoExterno)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IDFirewall }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>
+

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SISSDV1.Models.Unidade>
+
+@{
+    ViewBag.Title = "Pesquisar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeUnidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelefoneUnidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SiteCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RazaoSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CNPJ)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeUnidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelefoneUnidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Endereco)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RazaoSocial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CNPJ)
+        </td>
+    </tr>
+}
+
+</table>

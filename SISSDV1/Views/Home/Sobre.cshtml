@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Sobre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Sobre").addClass("active")
+    });
+</script>
+
+<div class="col-md-12">
+    <div class="card" style="margin-top: 3%; margin-left: -1%; margin-right: -1%;">
+        <div class="card-header" data-background-color="green">
+            @ViewBag.Title
+        </div>
+        <div class="panel-collapse collapse in">
+            <div class="card-body" style="padding-left: 5%;">
+                <div id="morris-area-example" style="height: 380px;">
+                    <br />
+                    <p class="col-md-4">
+                        Site Intranet desenvolvido para auxiliar a equipe de TI do grupo SEB
+                        contando com diversas funcionalidades e interações com os diversos
+                        sistemas e Bancos do grupo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

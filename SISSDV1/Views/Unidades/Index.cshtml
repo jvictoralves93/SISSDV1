@@ -1,0 +1,132 @@
+﻿@model IEnumerable<SISSDV1.Models.Unidade>
+
+@{
+    ViewBag.Title = "Unidades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+if (Request.Cookies["Acesso"] != null)
+{
+    <br />
+    <!-- Botão Para Novo Item -->
+    <p>
+        @Html.ActionLink("Nova Unidade", "Create", "Unidades", new { @class = "btn btn-primary btn-sm" })
+    </p>
+
+    <!-- Unidades -->
+    <section class="card">
+        <header class="card-header" data-background-color="green">
+            Unidades
+        </header>
+        <div class="card-body table-responsive">
+            <table class="table table-hover" id="tabela">
+                <thead>
+                    <tr class="text-success">
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cidade)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NomeUnidade)
+                        </th>
+                        <th width="160px">
+                            @Html.DisplayNameFor(model => model.TelefoneUnidade)
+                        </th>
+                        <th width="110px">
+                            @Html.DisplayNameFor(model => model.SiteCode)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>                
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" name="filtroCidade" class="form-control" placeholder="Cidade" />
+                        </td>
+                        <td>
+                            <input type="text" name="filtroUnidade" class="form-control" placeholder="Unidade" />
+                        </td>
+                        <td>
+                            <input type="text" name="filtroTel" class="form-control" placeholder="Telefone" />
+                        </td>
+                        <td>
+                            <input type="text" name="filtroSC" class="form-control" placeholder="Site Code" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    @{
+                        Html.RenderPartial("Resultado");
+                    }                  
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <br />
+}
+else
+{
+    <br />
+    <!-- Unidades -->
+    <section class="card">
+        <header class="card-header" data-background-color="green">
+            Unidades
+        </header>
+        <div class="card-body table-responsive">
+            <table class="table table-hover" id="tabela">
+                <thead>
+                    <tr class="text-success">
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cidade)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NomeUnidade)
+                        </th>
+                        <th width="160px">
+                            @Html.DisplayNameFor(model => model.TelefoneUnidade)
+                        </th>
+                        <th width="110px">
+                            @Html.DisplayNameFor(model => model.SiteCode)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" name="filtroCidade" class="form-control" placeholder="Cidade" />
+                        </td>
+                        <td>
+                            <input type="text" name="filtroUnidade" class="form-control" placeholder="Unidade" />
+                        </td>
+                        <td>
+                            <input type="text" name="filtroTel" class="form-control" placeholder="Telefone" />
+                        </td>
+                        <td>
+                            <input type="text" name="filtroSC" class="form-control" placeholder="Site Code" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr style="cursor: pointer" id="resultado" onclick="location.href='Details/'+'@item.IDUnidade'">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cidade)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NomeUnidade)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TelefoneUnidade)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SiteCode)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <br />
+}
+}

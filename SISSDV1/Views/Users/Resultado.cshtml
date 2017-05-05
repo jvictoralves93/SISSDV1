@@ -1,0 +1,33 @@
+﻿@model IEnumerable<SISSDV1.Models.User>
+
+@foreach (var item in Model)
+{
+    <tr class="resultado">
+        <td>
+            @Html.DisplayFor(i => item.NomeExibicao)
+        </td>
+        <td>
+            @Html.DisplayFor(i => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(i => item.Cargo)
+        </td>
+        <td>
+            @Html.DisplayFor(i => item.StatusTexto)
+        </td>
+        <td class="text-left" style="">
+            <button type="button" data-toggle="modal" data-target="#modaEdit_@item.objectSid" class="btn btn-xs btn-primary command-edit item"><span class="ion-edit"></span></button>
+            <button type="button" data-toggle="modal" data-target="#modaDeth_@item.objectSid" class="btn btn-xs btn-warning command-edit item"><span class="ion-information"></span></button>
+            <button type="button" data-toggle="modal" data-target="#modaRest_@item.objectSid" class="btn btn-xs btn-danger command-edit item"><span class="ion-key"></span></button>
+        </td>
+    </tr>
+    <div class="modal right fade" id="modaDeth_@item.objectSid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("DetalhesUsuario", item.Email)
+    </div>
+    <div class="modal right fade" id="modaEdit_@item.objectSid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        @Html.Action("Editar", item)
+    </div>
+    <div class="modal fade" id="modaRest_@item.objectSid">
+        @Html.Action("ResetarSenha", item.Email.Split('@')[0])
+    </div>
+}

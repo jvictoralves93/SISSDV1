@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SISSDV1.Models.EscalaSabado>
+@{
+    ViewBag.Title = "Escala de Sábado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Escala").addClass("active")
+    });
+</script>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-2 col-sm-3 col-xs-3">
+                <div class="card" id="external-events">
+                    <div class="card-header" data-background-color="green">
+                        Analistas
+                        <div class="clearfix"></div>
+                    </div>
+                    <div id="portlet2" class="panel-collapse collapse in">
+                        <div class="card-body">
+                            <br />
+                            <div class='fc-event' id="João Victor">João Victor</div>
+                            <div class='fc-event' id="Giovani Neves">Giovani Neves</div>
+                            <div class='fc-event' id="Jonathan">Jonathan</div>
+                            <div class='fc-event' id="Luis">Luis</div>
+                            <div class='fc-event' id="Washington">Washington</div>
+                            <div class='fc-event' id="Guilherme">Guilherme</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                .fc-bg{
+                    background-color: #fafafa;
+                }
+                tr:hover, td:hover, th:hover{
+                    background-color: transparent;
+                }
+            </style>
+
+            <div id='calendar' class="col-md-9 col-lg-9 col-xs-9 col-sm-9"></div>
+        </div>
+    </div>
+</div>
+<br />
+
+@section scripts{
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src='~/Scripts/full-calendar/moment.min.js'></script>
+    <script src='~/Scripts/full-calendar/fullcalendar.min.js'></script>
+    <script src='~/Scripts/full-calendar/pt-br.js'></script>
+    <script src="~/Scripts/full-calendar/calendario.js"></script>
+}

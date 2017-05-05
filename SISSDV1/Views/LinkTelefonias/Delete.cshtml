@@ -1,0 +1,59 @@
+﻿@model SISSDV1.Models.LinkTelefonia
+
+@{
+    ViewBag.Title = "Excluir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Request.Cookies["Acesso"] == null)
+    {
+        Response.Redirect("Index");
+    }
+}
+
+<br />
+<!-- Section -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        @Model.Operadora
+    </header>
+    <div class="card-body table-responsive">
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-success">
+                    <td>@Html.DisplayNameFor(model => model.Operadora.NomeOperadora)</td>
+                    <th>@Html.DisplayNameFor(model => model.Unidade.NomeUnidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.CodigoCliente)</th>
+                    <th>@Html.DisplayNameFor(model => model.DDD)</th>
+                    <th>@Html.DisplayNameFor(model => model.TroncoChave)</th>
+                    <th>@Html.DisplayNameFor(model => model.NumerosPortadosInicio)</th>
+                    <th>@Html.DisplayNameFor(model => model.NumerosPortadosFim)</th>
+                    <th>@Html.DisplayNameFor(model => model.Operadora.Contato)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Operadora.NomeOperadora)</td>
+                    <td>@Html.DisplayFor(model => model.Unidade.NomeUnidade)</td>
+                    <td>@Html.DisplayFor(model => model.CodigoCliente)</td>
+                    <td>@Html.DisplayFor(model => model.DDD)</td>
+                    <td>@Html.DisplayFor(model => model.TroncoChave)</td>
+                    <td>@Html.DisplayFor(model => model.NumerosPortadosInicio)</td>
+                    <td>@Html.DisplayFor(model => model.NumerosPortadosFim)</td>
+                    <th>@Html.DisplayFor(model => model.Operadora.Contato)</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @using (Html.BeginForm("Delete", "LinkTelefonias", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <br />
+        <div class="form-actions text-center">
+            <input type="submit" value="Confirmar" class="btn btn-Denger btn-sm" /> |
+            @Html.ActionLink("Voltar", "Index", "Unidades", new { @class = "btn btn-primary btn-sm" })
+        </div>
+    }
+</section>
+<br />

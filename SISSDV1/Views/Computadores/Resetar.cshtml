@@ -1,0 +1,34 @@
+﻿@model SISSDV1.Models.Computador
+@{
+    Layout = null;
+    ViewBag.Title = "Resetar Senha";
+}
+<div class="modal-dialog modal-content card" style="width: 400px; height:300px;">
+    <div class="card-header" data-background-color="green">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+        </button>
+        Resetar Computador
+    </div>
+    <div class="modal-body card-body">
+        <form id="form-resethost" method="post">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <h5>Confirmar Operação?</h5>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right" style="margin-top: 2%;">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cencelar</button>
+                        <input type="submit" value="Confirmar" class="btn btn-primary btn-sm" id="confirmar"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer card-footer">
+    </div>
+</div><!-- /.modal-content -->
+<!-- Validação -->
+@Scripts.Render("~/bundles/jqueryval")
