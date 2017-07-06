@@ -13,10 +13,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-2 col-sm-3 col-xs-3">
+            <div class="col-md-2 col-sm-3 col-xs-3">
                 <div class="card" id="external-events">
-                    <div class="card-header" data-background-color="green">
-                        Analistas
+                    <div class="card-header text-center" data-background-color="green">
+                        Eventos
                         <div class="clearfix"></div>
                     </div>
                     <div id="portlet2" class="panel-collapse collapse in">
@@ -28,6 +28,8 @@
                             <div class='fc-event' id="Luis">Luis</div>
                             <div class='fc-event' id="Washington">Washington</div>
                             <div class='fc-event' id="Guilherme">Guilherme</div>
+                            <div class='fc-event' style="background-color: slategray; border-color: slategray"
+                                  id="Feriado">Feriado</div>
                         </div>
                     </div>
                 </div>
@@ -41,12 +43,19 @@
                     background-color: transparent;
                 }
             </style>
-
+            
+            
             <div id='calendar' class="col-md-9 col-lg-9 col-xs-9 col-sm-9"></div>
         </div>
     </div>
 </div>
 <br />
+<div class="modal fade" id="ModalExcluir"></div>
+<div class="container">
+    <div class="modal fade" id="modalSucesso">
+        @Html.Action("Sucesso")
+    </div>
+</div>
 
 @section scripts{
     <script src="~/Scripts/jquery-ui.js"></script>

@@ -56,12 +56,38 @@
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 <!-- Filtros -->
-<script src="~/Scripts/jquery2.0.2.js"></script>
+<!-- Validação -->
+@Scripts.Render("~/bundles/funcionalidades")
+@Scripts.Render("~/bundles/jqueryval")
+<!-- Filtros -->
 <script>
-    $(document).ready(function () {
-        FiltrarCidade();
+//Cria um Computador
+var formcompcriar = $("#form-computador");
+
+
+formcompcriar.submit(function CriarComputador() {
+    if (formcompcriar.valid()) {
+        var hostname = $('#hostname').val();
+        var tecnico = $('#tecnico').val();
+        var cidade = $('#cidade').val();
+        var unidade = $('#unidade').val();
+        var departamento = $('#departamento').val();
+        $.ajax({
+            url: 'CriarComputador',
+            type: "POST",
+            dataType: "JSON",
+            data: { hostname, tecnico, cidade, unidade, departamento },
+            success: function () {
+                $("#modalNovoComp").modal("hide");
+                $("#modalSucesso").modal("show");
+            }
+        });
+    }
+    return false;
     });
+
+$(document).ready(function () {
+    FiltrarCidade();
+});
 </script>
 
-<!-- Validação -->
-@Scripts.Render("~/bundles/jqueryval")

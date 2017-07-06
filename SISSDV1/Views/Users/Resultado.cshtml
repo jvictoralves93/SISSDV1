@@ -15,19 +15,12 @@
         <td>
             @Html.DisplayFor(i => item.StatusTexto)
         </td>
-        <td class="text-left" style="">
-            <button type="button" data-toggle="modal" data-target="#modaEdit_@item.objectSid" class="btn btn-xs btn-primary command-edit item"><span class="ion-edit"></span></button>
-            <button type="button" data-toggle="modal" data-target="#modaDeth_@item.objectSid" class="btn btn-xs btn-warning command-edit item"><span class="ion-information"></span></button>
-            <button type="button" data-toggle="modal" data-target="#modaRest_@item.objectSid" class="btn btn-xs btn-danger command-edit item"><span class="ion-key"></span></button>
+
+        <td>
+            <button type="button" alt="Editar Usuário" class="btn btn-xs btn-primary" onclick="editar('@item.Email')"><span class="ion-edit"></span></button>
+            <button type="button" alt="Detalhes Usuário" class="btn btn-xs btn-warning" onclick="detalheModal('@item.Email')"><span class="ion-information"></span></button>
+            <button type="button" alt="Resetar Senha" class="btn btn-xs btn-danger" onclick="modalreset('@item.Email')"><span class="ion-key"></span></button>
+            <button type="button" alt="Verificar Usuário" class="btn btn-xs btn-info" onclick="verificar('@item.Email')"><span class="ion-checkmark"></span></button>
         </td>
-    </tr>
-    <div class="modal right fade" id="modaDeth_@item.objectSid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        @Html.Action("DetalhesUsuario", item.Email)
-    </div>
-    <div class="modal right fade" id="modaEdit_@item.objectSid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        @Html.Action("Editar", item)
-    </div>
-    <div class="modal fade" id="modaRest_@item.objectSid">
-        @Html.Action("ResetarSenha", item.Email.Split('@')[0])
-    </div>
+    </tr>    
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SISSDV1.Models.User
+@{
     Layout = null;
     ViewBag.Title = "Verificar";
 }
@@ -15,6 +16,7 @@
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+            @Html.HiddenFor(model => model.Email)
             <h5>Deseja confirmar a operação?</h5>
 
             <div class="row">

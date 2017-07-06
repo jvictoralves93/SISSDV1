@@ -1013,7 +1013,6 @@
     <Content Include="Content\font\context-menu-icons.woff" />
     <Content Include="Content\font\context-menu-icons.woff2" />
     <Content Include="Content\material-dashboard.css.map" />
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\full-calendar\calendario.js" />
     <Content Include="Scripts\full-calendar\fullcalendar.min.js" />
@@ -1045,8 +1044,6 @@
     <Content Include="Scripts\material-dash\material-dashboard.js" />
     <Content Include="Scripts\material-dash\material.min.js" />
     <Content Include="Scripts\material.js" />
-    <Content Include="Scripts\menucomputadores.js" />
-    <Content Include="Scripts\menucontexto.js" />
     <Content Include="Scripts\modal.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr.min.js" />
@@ -1852,8 +1849,7 @@
     <Content Include="Views\Users\Resultado.cshtml" />
     <Content Include="Views\Users\ResetarSenha.cshtml" />
     <Content Include="Views\Users\DetalhesUsuario.cshtml" />
-    <Content Include="Views\Users\Editar.cshtml" />
-    <Content Include="Views\Users\Deletar.cshtml" />
+    <Content Include="Views\Users\EditarUsuario.cshtml" />
     <Content Include="Views\Users\Sucesso.cshtml" />
     <Content Include="Views\Computadores\Index.cshtml" />
     <Content Include="Views\Computadores\Resultado.cshtml" />
@@ -1880,9 +1876,11 @@
     <Content Include="Views\Home\Escala.cshtml" />
     <Content Include="Views\Home\ResumoFuncionarios.cshtml" />
     <Content Include="Views\Home\SiteCode.cshtml" />
-    <Content Include="Views\Home\ResumoUsuariosAD.cshtml" />
-    <Content Include="Views\Home\ResumoComputadoresAD.cshtml" />
+    <Content Include="Views\Home\ResumoAD.cshtml" />
+    <Content Include="Views\Home\ResumoLinks.cshtml" />
     <Content Include="Views\Home\ResumoUnidades.cshtml" />
+    <Content Include="Views\Escala\ModalExcluir.cshtml" />
+    <Content Include="Views\Escala\Sucesso.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1892,7 +1890,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>

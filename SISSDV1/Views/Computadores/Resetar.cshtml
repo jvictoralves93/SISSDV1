@@ -1,7 +1,7 @@
 ﻿@model SISSDV1.Models.Computador
 @{
     Layout = null;
-    ViewBag.Title = "Resetar Senha";
+    ViewBag.Title = "Resetar Computador";
 }
 <div class="modal-dialog modal-content card" style="width: 400px; height:300px;">
     <div class="card-header" data-background-color="green">
@@ -14,13 +14,15 @@
         <form id="form-resethost" method="post">
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="row">
+
+            @Html.HiddenFor(model => model.Hostname, new { name = "hostrest", id = "hostrest" })
+            <div class="row text-center">
                 <h5>Confirmar Operação?</h5>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right" style="margin-top: 2%;">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cencelar</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
                         <input type="submit" value="Confirmar" class="btn btn-primary btn-sm" id="confirmar"/>
                     </div>
                 </div>
@@ -32,3 +34,24 @@
 </div><!-- /.modal-content -->
 <!-- Validação -->
 @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+var formresethost = $("#form-resethost");
+formresethost.submit(function ResetHost() {
+    if (formresethost.valid()) {
+        var hostname = $('#hostrest').val();
+        $.ajax({
+            url: 'ResetHost',
+            type: "POST",
+            dataType: "JSON",
+            data: { hostname },
+            success: function () {
+                $("#modalResetComp").empty();
+                $("#modalResetComp").modal("hide");
+                $("#modalSucesso").modal("show");
+            }
+        });
+    }
+    return false;
+});
+</script>

@@ -205,6 +205,17 @@ namespace SISSDV1.Controllers
             }
         }
 
+        public ActionResult Novo()
+        {
+            var cidades = new List<Models.OrganizationalUnit>();
+            ViewBag.Cidade = new SelectList(cidades, "Cidade", "Cidade");
+            var unidades = new List<OrganizationalUnit>();
+            ViewBag.Unidade = new SelectList(unidades, "Unidade", "Unidade");
+            var departamentos = new List<OrganizationalUnit>();
+            ViewBag.Departamento = new SelectList(departamentos, "Departamento", "Departamento");
+            return View();
+        }
+
         //Novo Computador
         [HttpPost]
         public ActionResult CriarComputador(string hostname, string cidade, string unidade, string departamento)
@@ -246,21 +257,9 @@ namespace SISSDV1.Controllers
             return Json(JsonRequestBehavior.AllowGet);
         }
         
-
-        public ActionResult Novo()
+        public ActionResult Resetar(string hostname)
         {
-            var cidades = new List<Models.OrganizationalUnit>();
-            ViewBag.Cidade = new SelectList(cidades, "Cidade", "Cidade");
-            var unidades = new List<OrganizationalUnit>();
-            ViewBag.Unidade = new SelectList(unidades, "Unidade", "Unidade");
-            var departamentos = new List<OrganizationalUnit>();
-            ViewBag.Departamento = new SelectList(departamentos, "Departamento", "Departamento");
-            return View();
-        }
-
-        public ActionResult Resetar()
-        {
-            return PartialView();
+            return PartialView(new Computador { Hostname = hostname });
         }
 
         public ActionResult ResetHost(string hostname)
@@ -308,21 +307,10 @@ namespace SISSDV1.Controllers
             connection.Close();
             return Json(JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Editar()
+        
+        public ActionResult Deletar(string hostname)
         {
-            var cidades = new List<Models.OrganizationalUnit>();
-            ViewBag.Cidade = new SelectList(cidades, "Cidade", "Cidade");
-            var unidades = new List<OrganizationalUnit>();
-            ViewBag.Unidade = new SelectList(unidades, "Unidade", "Unidade");
-            var departamentos = new List<OrganizationalUnit>();
-            ViewBag.Departamento = new SelectList(departamentos, "Departamento", "Departamento");
-            return PartialView();
-        }
-
-        public ActionResult Deletar()
-        {
-            return PartialView();
+            return PartialView(new Computador { Hostname = hostname });
         }
 
         public ActionResult DeleteHost(string hostname)
@@ -347,12 +335,7 @@ namespace SISSDV1.Controllers
             connection.Close();
             return Json(JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Detalhes()
-        {
-            return PartialView();
-        }
-
+        
         public ActionResult Sucesso()
         {
             return PartialView();
@@ -407,49 +390,59 @@ namespace SISSDV1.Controllers
         }
 
         //Retorna o Json Para Preencher o Gerente
-        public ActionResult BuscaTecnico(string tecnico)
-        {
-            var buscado = new User();
-            buscado = ProcurarTecnico(tecnico);
-            return Json(buscado, JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult BuscaTecnico(string tecnico)
+        //{
+        //    var buscado = new User();
+        //    buscado = ProcurarTecnico(tecnico);
+        //    return Json(buscado, JsonRequestBehavior.AllowGet);
+        //}
 
         //Procurar Tecnico
-        [HttpPost]
-        public User ProcurarTecnico(string tecnico)
-        {
-            //Lista de Usuários
-            User resultado = new User();
+        //[HttpPost]
+        //public User ProcurarTecnico(string tecnico)
+        //{
+        //    //Lista de Usuários
+        //    User resultado = new User();
 
-            //Função
-            try
-            {
-                //Abre conexão com o AD
-                OpenAdConnection();
-                // Cria o objeto search
-                DirectorySearcher search = new DirectorySearcher(ldapConnection);
+        //    //Função
+        //    try
+        //    {
+        //        //Abre conexão com o AD
+        //        OpenAdConnection();
+        //        // Cria o objeto search
+        //        DirectorySearcher search = new DirectorySearcher(ldapConnection);
 
-                // Adiciona Filtro
-                search.Filter = "(|(displayName=*" + tecnico + "*)(userPrincipalName=*" + tecnico + "*))";
-                search.SearchScope = SearchScope.Subtree;
-                SearchResultCollection resultCol = search.FindAll();
+        //        // Adiciona Filtro
+        //        search.Filter = "(|(displayName=*" + tecnico + "*)(userPrincipalName=*" + tecnico + "*))";
+        //        search.SearchScope = SearchScope.Subtree;
+        //        SearchResultCollection resultCol = search.FindAll();
 
-                // Checa se achou algo
-                if (resultCol != null)
-                {
-                    foreach (SearchResult r in resultCol)
-                    {
-                        resultado.NomeExibicao = r.Properties["cn"][0].ToString();
-                        resultado.OU.Ou = r.Properties["distinguishedName"][0].ToString();
-                    }
-                }
-                return resultado;
-            }
-            catch
-            {
-                return resultado;
-            }
-        }
+        //        // Checa se achou algo
+        //        if (resultCol != null)
+        //        {
+        //            foreach (SearchResult r in resultCol)
+        //            {
+        //                resultado.NomeExibicao = r.Properties["cn"][0].ToString();
+        //                resultado.OU.Ou = r.Properties["distinguishedName"][0].ToString();
+        //            }
+        //        }
+        //        return resultado;
+        //    }
+        //    catch
+        //    {
+        //        return resultado;
+        //    }
+        //}
 
+        //public ActionResult Editar()
+        //{
+        //    var cidades = new List<Models.OrganizationalUnit>();
+        //    ViewBag.Cidade = new SelectList(cidades, "Cidade", "Cidade");
+        //    var unidades = new List<OrganizationalUnit>();
+        //    ViewBag.Unidade = new SelectList(unidades, "Unidade", "Unidade");
+        //    var departamentos = new List<OrganizationalUnit>();
+        //    ViewBag.Departamento = new SelectList(departamentos, "Departamento", "Departamento");
+        //    return PartialView();
+        //}
     }
 }

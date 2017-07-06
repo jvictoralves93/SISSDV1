@@ -1,96 +1,106 @@
 ﻿<!DOCTYPE html>
-<html>
-<head lang="pt-br">
-@{
-    //protege a página contra usuários não logados
-    if (Request.Cookies["Username"] == null)
-    {
-        <script>
-            alert("Acesso Negado");
-            window.location.href = "../../Home/Login";
-        </script>
+<html lang="pt-br">
+<head>
+    @{
+        //protege a página contra usuários não logados
+        if (Request.Cookies["Username"] == null)
+        {
+            <script>
+                alert("Acesso Negado");
+                window.location.href = "../../Home/Login";
+            </script>
+        }
     }
-}
-
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" href="~/img/ico.png">
-<title>@ViewBag.Title - SisSD</title>
-@Styles.Render("~/Content/css")
-<link rel="stylesheet" href="~/Content/jquery.contextMenu.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="~/img/ico.png">
+    <title>@ViewBag.Title - SisSD</title>
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="~/Content/jquery.contextMenu.css" />
 </head>
 <body>
     <!-- Aside Start-->
-<aside class="left-panel">
+    <aside class="left-panel">
 
-    <!-- brand -->
-    <div class="logo" style="font-size: x-large">
-        @Html.ActionLink("SISSD", "Index", "Home", new { @class = "label" })
-    </div>
-    <!-- / brand -->
-    <!-- Navbar Start -->
-    <nav class="navigation">
-        <ul class="list-unstyled" id="tabs">
-            <li id="Inicio"><a href="../../Home/Index">
-                 <i class="ion-home"></i>
-                 <span class="nav-label">Início</span></a>
-            </li>
-            <li class="has-submenu" id="GerUnidades">
-                <a href="#"><i class="ion-university"></i><span class="nav-label">Gerenciamento Unidades</span></a>
-                <ul class="list-unstyled">
-                    <li><a href="@Url.Action("Index","Firewalls")">Firewalls</a></li>
-                    <li><a href="@Url.Action("Index", "Unidades")">Unidades</a></li>
-                    <li><a href="@Url.Action("Index", "Links")">Links Internet</a></li>
-                    <li><a href="@Url.Action("Index", "LinkTelefonias")">Links Telefonia</a></li>
-                    <li><a href="@Url.Action("Index", "Tecnicos")">Técnicos</a></li>
-                    <li><a href="@Url.Action("Index", "Operadoras")">Operadoras</a></li>
-                </ul>
-            </li>
-            @{
-            if (Request.Cookies["Acesso"] == null)
-            {
-
-            }
-            else
-            {
-                <li class="has-submenu" id="GerAD">
-                    <a href="#"><i class="ion-android-settings"></i><span class="nav-label">Gerenciamento AD</span></a>
+        <!-- brand -->
+        <div class="logo" style="font-size: x-large">
+            @Html.ActionLink("SISSD", "Index", "Home", new { @class = "label" })
+        </div>
+        <!-- / brand -->
+        <!-- Navbar Start -->
+        <nav class="navigation">
+            <ul class="list-unstyled" id="tabs">
+                <li id="Inicio">
+                    <a href="@Url.Action("Index","Home")">
+                        <i class="ion-home"></i>
+                        <span class="nav-label">Início</span>
+                    </a>
+                </li>
+                <li class="has-submenu" id="GerUnidades">
+                    <a href="#"><i class="ion-university"></i><span class="nav-label">Gerenciamento Unidades</span></a>
                     <ul class="list-unstyled">
-                        <li><a href="@Url.Action("Index","Users")">Usuários</a></li>
-                        <li><a href="@Url.Action("Index", "Computadores")">Computadores</a></li>
-                        <li><a href="@Url.Action("Index", "Grupos")">Grupos</a></li>
+                        <li><a href="@Url.Action("Index", "Firewalls")">Firewalls</a></li>
+                        <li><a href="@Url.Action("Index", "Unidades")">Unidades</a></li>
+                        <li><a href="@Url.Action("Index", "Links")">Links Internet</a></li>
+                        <li><a href="@Url.Action("Index", "LinkTelefonias")">Links Telefonia</a></li>
+                        <li><a href="@Url.Action("Index", "Tecnicos")">Técnicos</a></li>
+                        <li><a href="@Url.Action("Index", "Operadoras")">Operadoras</a></li>
                     </ul>
                 </li>
-            }
-            }
-            <li id="Funcionarios">
-                <a href="@Url.Action("Index", "Funcionarios")">
-                    <i class="ion-android-contact"></i>
-                    <span class="nav-label">Funcionários</span>
-                </a>
-            </li>
-            <li id="Escala">
-                <a href="@Url.Action("Index", "Escala")">
-                    <i class="ion-calendar"></i>
-                    <span class="nav-label">Escala de Sábado</span>
-                </a>
-            </li>
-            <li id="Sobre">
-                <a href="@Url.Action("Sobre", "Home")">
-                    <i class="ion-information-circled"></i>
-                    <span class="nav-label">Sobre</span>
-                </a>
-            </li>
-            <li id="Contato">
-                <a href="@Url.Action("Contato", "Home")">
-                    <i class="ion-android-contacts"></i>
-                    <span class="nav-label">Contato</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+                @{
+                    if (Request.Cookies["Acesso"] == null)
+                    {
 
-</aside>
+                    }
+                    else
+                    {
+                        <li class="has-submenu" id="GerAD">
+                            <a href="#"><i class="ion-android-settings"></i><span class="nav-label">Gerenciamento AD</span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="@Url.Action("Index", "Users")">Usuários</a></li>
+                                <li><a href="@Url.Action("Index", "Computadores")">Computadores</a></li>
+                                <li><a href="@Url.Action("Index", "Grupos")">Grupos</a></li>
+                            </ul>
+                        </li>
+                    }
+                }
+                <li id="Funcionarios">
+                    <a href="@Url.Action("Index", "Funcionarios")">
+                        <i class="ion-android-contact"></i>
+                        <span class="nav-label">Funcionários</span>
+                    </a>
+                </li>
+                @{
+                    if (Request.Cookies["Acesso"] == null)
+                    {
+
+                    }
+                    else
+                    {
+                        <li id="Escala">
+                            <a href="@Url.Action("Index", "Escala")">
+                                <i class="ion-calendar"></i>
+                                <span class="nav-label">Escala de Sábado</span>
+                            </a>
+                        </li>
+                    }
+                }
+                <li id="Sobre">
+                    <a href="@Url.Action("Sobre", "Home")">
+                        <i class="ion-information-circled"></i>
+                        <span class="nav-label">Sobre</span>
+                    </a>
+                </li>
+                <li id="Contato">
+                    <a href="@Url.Action("Contato", "Home")">
+                        <i class="ion-android-contacts"></i>
+                        <span class="nav-label">Contato</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </aside>
     <!-- Aside Ends-->
     <!--Main Content Start -->
     <section class="content">
@@ -104,23 +114,23 @@
             </button>
 
             <!-- Pesquisa -->
-            @using (Html.BeginForm("Pesquisar","Home", FormMethod.Post, new { @class = "pull-left col-md-8 form-group form-group-sm form-black is-empty", role = "search" }))
+            @using (Html.BeginForm("Pesquisar", "Home", FormMethod.Post, new { @class = "pull-left col-md-8 form-group form-group-sm form-black is-empty", role = "search" }))
             {
                 <input type="text" id="pesquisa" name="pesquisa"
-                        placeholder="Pesquisar..." class="form-control">
+                       placeholder="Pesquisar..." class="form-control" />
             }
             <!-- Right navbar -->
             <ul class="navbar-right top-menu pull-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
-                        <i class="ion-ios-contact"></i> <label style="cursor: pointer">@Request.Cookies["Nome"].Value </label>
+                        <i class="ion-ios-contact"></i> <label style="cursor: pointer">@Request.Cookies["Nome"].Value</label>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="text-center">
                             @Html.ActionLink("Sair", "Sair", "Home")
                         </li>
                     </ul>
-                </li>                
+                </li>
             </ul>
             <!-- End right navbar -->
         </header>
@@ -130,12 +140,12 @@
         </div>
 
 
-            <!-- Footer Start -->
+        <!-- Footer Start -->
         <footer id="footer" class="footer text-center navbar-fixed-bottom container"
                 style="background-color:#ffffff; padding: 15px; position: absolute; margin-left: 0;">
             <p style="color:#000000">&copy; 2017 - João Victor de Sá Alves</p>
         </footer>
-            <!-- Footer Ends -->
+        <!-- Footer Ends -->
     </section>
 
     @Scripts.Render("~/bundles/jquery")
@@ -143,8 +153,7 @@
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/site")
-    @Scripts.Render("~/bundles/modal")
-    @Scripts.Render("~/bundles/funcionalidades")    
+    @Scripts.Render("~/bundles/funcionalidades")
     @RenderSection("scripts", required: false)
 </body>
 </html>

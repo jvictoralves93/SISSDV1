@@ -2,12 +2,40 @@
 
 @foreach (var item in Model)
 {    
-    <tr style="cursor: pointer;" class="context-menu-one resultado" id="@item.NomeComputador">
+    <tr style="cursor: pointer;" class="context-menu-one resultado">
         <td>
             @Html.DisplayFor(i => item.NomeComputador)
         </td>
         <td>
             @Html.DisplayFor(i => item.SistemaOperacional)
         </td>
+
+        <td>
+            <button type="button" alt="Resetar Computador" class="btn btn-xs btn-info" onclick="ModalResetHost('@item.Hostname')"><span class="ion-ios-reload"></span></button>
+            <button type="button" alt="Excluir Computador" class="btn btn-xs btn-warning" onclick="ModalDeleteHost('@item.Hostname')"><span class="ion-android-delete"></span></button>
+        </td>
+
     </tr>    
+    
+<script>
+$(function () {
+    $.contextMenu({
+        selector: '.context-menu-one',
+        callback: function (key, options) {
+            if (key == "Resetar Host") {
+                ModalResetHost('@item.Hostname');
+            } else if (key == "Editar") {
+                ModalDeleteHost('@item.Hostname');
+            }
+        },
+        items: {
+            //"Editar": { name: "Editar", icon: "edit", },
+            "Resetar Host": { name: "Resetar Host", icon: "reply" },
+            "Excluir": { name: "Excluir", icon: "delete" },
+            //"Detalhes": { name: "Detalhes", icon: "details" },
+        }
+    });
+
+});
+</script>
 }

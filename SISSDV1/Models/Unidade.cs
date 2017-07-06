@@ -24,11 +24,7 @@ namespace SISSDV1.Models
         public string TelefoneUnidade { get; set; }
         
         [DisplayName("Site Code")]
-        public int SiteCode { get; set; }
-
-        [StringLength(30)]
-        [DisplayName("Estado")]
-        public string Estado { get; set; }
+        public int SiteCode { get; set; }        
 
         [StringLength(30)]
         [DisplayName("Cidade")]

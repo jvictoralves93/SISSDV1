@@ -43,8 +43,8 @@ namespace SISSDV1.Controllers
 
         public void ChangeServerIp()
         {
-            if (Context.ServerIp == "10.0.210.9")
-                Context.ServerIp = "";
+            if (Context.ServerIp == "10.0.210.8")
+                Context.ServerIp = "10.0.210.8";
             else
                 Context.ServerIp = "10.0.210.9";
         }
@@ -58,15 +58,11 @@ namespace SISSDV1.Controllers
 
         public ActionResult Index()
         {
-            Escala();            
-
-            Aniversariantes();                        
-
-            return View();
+            return View("Index");
         }
 
-        public ActionResult Escala() {
-
+        public ActionResult Escala()
+        {
             List<EscalaSabado> escala = new List<EscalaSabado>();
             escala = db.Escalas.Where(i => i.start.Month >= DateTime.Now.Month).Take(4).ToList();
 
@@ -88,14 +84,15 @@ namespace SISSDV1.Controllers
 
             ViewBag.qtd = funcionarios.Count();
             ViewBag.ferias = funcionarios.Where(i => i.SITUACAO == "Férias").Count();
+            ViewBag.licenca = funcionarios.Where(i => i.SITUACAO == "Licença Mater.").Count();
 
             return View();
         }
 
         public ActionResult ResumoUnidades()
         {
-            List<Unidade> unidades = db.Unidades.ToList();
-            return View(unidades);
+            ViewBag.unidades = db.Unidades.ToList().Count();
+            return View();
         }
 
         public ActionResult SiteCode()
@@ -104,13 +101,20 @@ namespace SISSDV1.Controllers
             return View(sitecode);
         }
 
-        public ActionResult ResumoUsuariosAD()
+        public ActionResult ResumoAD()
         {
             return View();
         }
 
-        public ActionResult ResumoComputadoresAD()
+        public ActionResult ResumoLinks()
         {
+            List<Operadora> operadoras = db.Operadoras.ToList();
+            List<Link> links = db.Links.ToList();
+            List<LinkTelefonia> linkstelefonia = db.LinkTelefonias.ToList();
+
+            ViewBag.operadoras = operadoras.Count();
+            ViewBag.links = links.Count();
+            ViewBag.linkstel = linkstelefonia.Count();
             return View();
         }
 
@@ -125,9 +129,8 @@ namespace SISSDV1.Controllers
             if (LoginUser(username, senha))
             {
                 //Buscar Grupos
-                User usuario = new User();
-                UsersController usercontroller = new UsersController();                
-                List<GrupoAD> grupoAcesso = usercontroller.BuscaGrupos(username);
+                User usuario = new User();              
+                List<GrupoAD> grupoAcesso = BuscaGrupos(username);
                 foreach (GrupoAD grupo in grupoAcesso)
                 {
                     if (grupo.GrupoNome == gruposissd)
@@ -151,7 +154,7 @@ namespace SISSDV1.Controllers
                 Response.Cookies.Add(new HttpCookie("NomeCompleto", usuario.NomeExibicao));
                 Response.Cookies["NomeCompleto"].Expires = DateTime.Now.AddDays(1);
 
-                Response.Cookies.Add(new HttpCookie("Nome", usuario.Nome));
+                Response.SetCookie(new HttpCookie("Nome", usuario.Nome)); //Response.Cookies.Add(new HttpCookie("Nome", usuario.Nome));
                 Response.Cookies["Nome"].Expires = DateTime.Now.AddDays(1);
 
                 Response.Cookies.Add(new HttpCookie("Sobrenome", usuario.Sobrenome));
@@ -169,8 +172,6 @@ namespace SISSDV1.Controllers
                 Response.Cookies.Add(new HttpCookie("Senha", usuario.Senha));
                 Response.Cookies["Senha"].Expires = DateTime.Now.AddDays(1);
                                 
-                //Retorna para a View com o objeto usuario
-                
                 return Index();
             }
             else
@@ -204,7 +205,6 @@ namespace SISSDV1.Controllers
         public ActionResult Contato()
         {
             ViewBag.Message = "Página de Contato";
-
             return View();
         }
 
@@ -227,7 +227,6 @@ namespace SISSDV1.Controllers
                     if (connection.ValidateCredentials(username, password))
                     {
                         return true;
-                       
                     }
                     else
                     {
@@ -279,6 +278,47 @@ namespace SISSDV1.Controllers
             catch
             {
                 return resultado;
+            }
+        }
+
+        //Busca Os Grupos do Usuário Modelo
+        public List<GrupoAD> BuscaGrupos(string username)
+        {
+            //Lista de grupos
+            List<GrupoAD> grupos = new List<GrupoAD>();
+
+            //Função
+            try
+            {
+                //Abre conexão com o AD
+                OpenAdConnection();
+                // Cria o objeto search
+                DirectorySearcher search = new DirectorySearcher(ldapConnection);
+
+                // Adiciona Filtro
+                search.Filter = "(samAccountName=" + username + ")";
+                search.SearchScope = SearchScope.Subtree;
+                SearchResultCollection resultCol = search.FindAll();
+
+                // Checa se achou algo
+                if (resultCol != null)
+                {
+                    foreach (SearchResult r in resultCol)
+                    {
+                        foreach (object grp in r.Properties["memberOf"])
+                        {
+                            GrupoAD grupo = new GrupoAD();
+                            grupo.GrupoNome = grp.ToString();
+
+                            grupos.Add(grupo);
+                        }
+                    }
+                }
+                return grupos;
+            }
+            catch
+            {
+                return grupos;
             }
         }
 

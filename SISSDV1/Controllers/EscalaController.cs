@@ -29,10 +29,10 @@ namespace SISSDV1.Controllers
         {
             EscalaSabado novaescala = new EscalaSabado();
             novaescala.title = title;
-            novaescala.description = null;
+            novaescala.description = title;
             novaescala.start = start;
             novaescala.end = start;
-            novaescala.allday = false;
+            novaescala.allday = true;
 
             db.Entry(novaescala).State = EntityState.Added;
             db.SaveChanges();
@@ -51,7 +51,7 @@ namespace SISSDV1.Controllers
                     id = item.id,
                     title = item.title,
                     start = item.start,
-                    end = item.end,
+                    end = item.start,
                     allday = item.allday
                 };
                 eventos.Add(evento);
@@ -61,17 +61,85 @@ namespace SISSDV1.Controllers
         }
 
         [HttpPost]
-        public ActionResult AlterarEvento(string title, DateTime start)
+        public ActionResult AlterarEvento(int id, string title, DateTime start)
         {
+            EscalaSabado escala = new EscalaSabado();
+            escala.id = id;
+            escala.title = title;
+            escala.start = start;
+            escala.end = start;
+            escala.allday = true;
+            escala.description = title;
+
+            db.Entry(escala).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ModalExcluir(int id)
+        {
+            return View(new EscalaSabado { id = id });
+        }
+        [HttpPost]
+        public ActionResult ExcluirEvento(int id)
+        {
+            EscalaSabado escala = db.Escalas.Find(id);
+            if (escala.title == "Feriado")
+            {
+                List<EscalaSabado> escalas = db.Escalas.Where(i => i.start >= escala.start).ToList();
+                foreach (EscalaSabado escalasab in escalas)
+                {
+                    escalasab.id = escalasab.id;
+                    escalasab.title = escalasab.title;
+                    escalasab.start = escalasab.start.AddDays(-7);
+                    escalasab.end = escalasab.end.AddDays(-7);
+                    escalasab.allday = true;
+                    escalasab.description = escalasab.title;
+
+                    db.Entry(escalasab).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                db.Escalas.Remove(escala);
+                db.SaveChanges();
+            }
+            else
+            {
+                db.Escalas.Remove(escala);
+                db.SaveChanges();
+            }            
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Sucesso()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult AdiantarEventos(DateTime start)
+        {
+            List<EscalaSabado> escalas = db.Escalas.Where(i => i.start >= start).ToList();
+            foreach (EscalaSabado escala in escalas)
+            {
+                escala.id = escala.id;
+                escala.title = escala.title;
+                escala.start = escala.start.AddDays(7);
+                escala.end = escala.end.AddDays(7);
+                escala.allday = true;
+                escala.description = escala.title;
+                
+                db.Entry(escala).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
             EscalaSabado novaescala = new EscalaSabado();
-            novaescala.title = title;
-            novaescala.description = null;
+            novaescala.title = "Feriado";
+            novaescala.description = "Feriado";
             novaescala.start = start;
             novaescala.end = start;
-            novaescala.allday = false;
+            novaescala.allday = true;
 
-            db.Entry(novaescala).State = EntityState.Modified;
+            db.Entry(novaescala).State = EntityState.Added;
             db.SaveChanges();
+
+
             return Json(JsonRequestBehavior.AllowGet);
         }
 

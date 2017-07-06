@@ -13,7 +13,7 @@
 </div>
 
 <p>
-    <button class="btn btn-primary btn-sm novo">Novo Computador</button>
+    <button class="btn btn-primary btn-sm" onclick="ModalNovoComputador();">Novo Computador</button>
 </p>
 
 <!-- Tabela de listagem dos usuários -->
@@ -31,6 +31,7 @@
                     <th>
                         Sistema Operacional
                     </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="Resultadocomputer">
@@ -45,27 +46,27 @@
 
 <!-- Madal's -->
 <div class="container">
-    <div class="modal right fade" id="modalNovo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal right fade" id="modalNovoComp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         @Html.Action("Novo")
     </div>
 </div>
-<div class="container">
-    <div class="modal right fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+@*<div class="container">
+    <div class="modal right fade" id="modalDetalhesComp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         @Html.Action("Detalhes")
     </div>
-</div>
-<div class="container">
-    <div class="modal right fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+</div>*@
+@*<div class="container">
+    <div class="modal right fade" id="modalEditComp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         @Html.Action("Editar")
     </div>
-</div>
+</div>*@
 <div class="container">
-    <div class="modal" id="modalReset">
+    <div class="modal" id="modalResetComp">
         @Html.Action("Resetar")
     </div>
 </div>
 <div class="container">
-    <div class="modal" id="modalDelete">
+    <div class="modal" id="modalDeleteComp">
         @Html.Action("Deletar")
     </div>
 </div>
@@ -77,7 +78,6 @@
 <!-- Fim Modal's -->
 <!-- Chama os Modals -->
 @section scripts{
-    <script src="~/Scripts/menucomputadores.js"></script>
     <script>
         $(document).ready(function () {
             BuscarComputador();

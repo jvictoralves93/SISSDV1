@@ -943,7 +943,7 @@ h2.title {
 .navbar .navbar-nav > li > a.btn.btn-info.dropdown-toggle, .open >
 .navbar .navbar-nav > li > a.btn.btn-info.dropdown-toggle:focus, .open >
 .navbar .navbar-nav > li > a.btn.btn-info.dropdown-toggle:hover {
-  background-color: #4caf50;
+  background-color: #00bcd4;
   color: rgba(255, 255, 255, 0.00);
 }
 .btn.btn-info:focus, .btn.btn-info:active, .btn.btn-info:hover,

@@ -1,24 +1,12 @@
 ﻿@model IEnumerable<SISSDV1.Models.Unidade>
 @{
-    Layout = null;
-    
-    int qtd = 0;
-    foreach (var item in Model)
-    {
-        qtd++;
-    }
-    //foreach (var item in Model.Where(i => i.SITUACAO == "Férias"))
-    //{
-    //    ferias++;
-    //}
+    Layout = null;    
 }
 
-
-<div style="padding-top: 5px;" class="text-center">
-    <p> Total de Unidades: <b>@qtd</b></p>
-    <p>@Html.ActionLink("Nova Unidade", "Create", "Unidades")</p>
-    <p>@Html.ActionLink("Firewalls","Index","Firewalls")</p>
-    @*<p> Funcionários de Férias: <b>@ferias</b></p>*@
+<div style="padding-top: 2%; padding-left: 12%;" class="text-justify">
+    <p> Total de Unidades: <b>@ViewBag.unidades</b></p>
+    <p>@Html.ActionLink("Unidades", "Index", "Unidades")</p>
+    <p>@Html.ActionLink("Firewalls", "Index", "Firewalls")</p>
 </div>
 
 

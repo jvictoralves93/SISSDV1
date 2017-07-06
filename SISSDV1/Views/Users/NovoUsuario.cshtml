@@ -28,7 +28,7 @@
                         @Html.ValidationMessageFor(model => model.Sobrenome, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="row form-group">
+                @*<div class="row form-group">
                     <div class="col-md-3">
                         @Html.LabelFor(model => model.DiaInicio, "DiaInicio", htmlAttributes: new { @class = "control-label" })
                         @Html.DropDownList("DiaInicio", null, htmlAttributes: new { @class = "form-control", id="diainicio" })
@@ -49,7 +49,7 @@
                         @Html.DropDownList("HorarioFim", null, htmlAttributes: new { @class = "form-control", id = "horariofim" })
                         @Html.ValidationMessageFor(model => model.HorarioFim, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>*@
                 @*<div class="row form-group form-group-sm">
                     <div class="col-md-12">
                         <input type="checkbox" name="horariofull" class="" id="horariofull"/>
@@ -134,21 +134,50 @@
         </div>
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
-
-
-<!-- Filtros -->
-<script src="~/Scripts/jquery2.0.2.js" ></script>
-<script>
-    $(document).ready(function () {
-        FiltrarCidade();
-        $('#horariofull').change(function () {
-            $('#horarioinicio').attr('disabled', 'disabled').val("00:00");
-            $('#horariofim').attr('disabled', 'disabled').val("00:00");
-            $('#diainicio').attr('disabled', 'disabled').val("Domingo");
-            $('#diafim').attr('disabled', 'disabled').val("Sábado");
-        });
-    });    
-</script>
-
 <!-- Validação -->
+
+@Scripts.Render("~/bundles/funcionalidades")
 @Scripts.Render("~/bundles/jqueryval")
+<!-- Filtros -->
+<script>
+//Cria um usuário
+var form = $("#form-user");
+
+
+form.submit(function CriarUsuario() {
+    if (form.valid()) {
+        var nome = $('#nome').val();
+        var sobrenome = $('#sobrenome').val();
+        var username = $('#Usuario').val();
+        var cargo = $('#cargo').val();
+        var subdepartamento = $('#subdepartamento').val();
+        var telefone = $('#telefone').val();
+        var cpf = $('#cpf').val();
+        var chapa = $('#chapa').val();
+        var senha = $('#senha').val();
+        var cidade = $('#cidade').val();
+        var unidade = $('#unidade').val();
+        var departamento = $('#departamento').val();
+        var diainicio = $('#diainicio').val();
+        var diafim = $('#diafim').val();
+        var horarioinicio = $('#horarioinicio').val();
+        var horariofim = $('#horariofim').val();
+        $.ajax({
+            url: 'CriarUsuario',
+            type: "POST",
+            dataType: "JSON",
+            data: { nome, sobrenome, username, diainicio, diafim, horarioinicio, horariofim, cargo, subdepartamento, telefone, cpf, chapa, senha, cidade, unidade, departamento },
+            success: function () {
+                $("#modalNovo").modal("hide");
+                $("#modalSucesso").modal("show");
+            }
+        });
+    }
+    return false;
+    });
+
+
+$(document).ready(function () {
+    FiltrarCidade();
+});
+</script>

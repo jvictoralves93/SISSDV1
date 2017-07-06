@@ -14,9 +14,9 @@
             revertDuration: 0  //  original position after the drag
         });
     });
+    
     /* initialize the calendar
 	-----------------------------------------------------------------*/
-    var zone = "-03:00";
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -35,40 +35,79 @@
         events: "BuscarEventos",
         eventReceive: function (event) {
             var title = event.title;
-            var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
-            $.ajax({
-                url: "CriarEvento",
-                type: "POST",
-                dataType: 'json',
-                data: { title, start },
-                success: function (response) {
-                    event.id = response.eventid;
-                    $('#calendar').fullCalendar('updateEvent', event);
-                },
-                error: function (e) {
-                    console.log(e.responseText);
-                }
-            });
+            var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS+00:00");
+            if (title == "Feriado") {
+                $.ajax({
+                    url: "AdiantarEventos",
+                    type: "POST",
+                    dataType: 'json',
+                    data: { start },
+                    success: function (response) {
+                        event.id = response.eventid;
+                        $('#calendar').fullCalendar('updateEvent', event);
+                    },
+                    error: function (e) {
+                        console.log(e.responseText);
+                    }
+                });
+            } else
+            {
+                $.ajax({
+                    url: "CriarEvento",
+                    type: "POST",
+                    dataType: 'json',
+                    data: { title, start },
+                    success: function (response) {
+                        event.id = response.eventid;
+                        $('#calendar').fullCalendar('updateEvent', event);
+                    },
+                    error: function (e) {
+                        console.log(e.responseText);
+                    }
+                });
+            }
             $('#calendar').fullCalendar('updateEvent', event);
         },
         eventDrop: function (event, delta, revertFunc) {
             var title = event.title;
-            var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
-            u$.ajax({
+            var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS+00:00");
+            var id = event.id;
+            $.ajax({
                 url: 'AlterarEvento',
-                data: { title, start },
+                data: { id, title, start },
                 type: 'POST',
                 dataType: 'json',
                 success: function (response) {
-                    if (response.status != 'success')
-                        revertFunc();
+                    if (response.status != 'success')                        
+                    $('#calendar').fullCalendar('updateEvent', event);
                 },
                 error: function (e) {
-                    revertFunc();
                     alert('Error processing your request: ' + e.responseText);
                 }
             });
+        },
+        eventClick: function (event, jsEvent, ui, view) {
+            var url = "ModalExcluir";
+            var id = event.id;
+            //debugger;
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: { id },
+                cache: false,
+                beforeSend: function (xhr) {
+                    $("#ModalExcluir").html('<div class="loading text-center p-40" style="position: absolute;left: 50%;top: 50%;"><img src="../img/load.gif" height="80" width="80"/></div>');
+                }
+            })
+              .done(function (html) {
+                  $("#ModalExcluir").html(html);
+              })
+                .fail(function () {
+                    $("#ModalExcluir").html('<p class="error" style="position: absolute;left: 50%;top: 50%;"><strong>Opa!</strong> Não foi possível abrir a página. Tente novamente mais tarde.</p>');
+                });
+            $("#ModalExcluir").modal("show");
         }
+
     });
 
 });

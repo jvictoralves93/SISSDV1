@@ -8,7 +8,7 @@
             @Html.DisplayFor(modelItem => item.title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.start.Day)/@Html.DisplayFor(modelItem => item.start.Month)
+            @Html.DisplayFor(modelItem => item.start.AddDays(1).Day)/@Html.DisplayFor(modelItem => item.start.Month)
         </td>
     </tr>
 }

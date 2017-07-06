@@ -50,7 +50,7 @@ namespace SISSDV1.Models
 
         [Required(ErrorMessage = "Digite a Chapa")]
         [DisplayName("Chapa")]
-        public int Chapa { get; set; }
+        public string Chapa { get; set; }
 
         [Required(ErrorMessage = "Digite o CPF")]
         [DisplayName("CPF")]

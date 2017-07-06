@@ -12,10 +12,10 @@
 </div>
 
 <p>
-    <button class="btn btn-primary btn-sm novo">Novo Usuário</button>
+    <button class="btn btn-primary btn-sm novo" onclick="ModalNovoUsuario();">Novo Usuário</button>
 </p>
 
-
+<div class="load"></div>
 <!-- Tabela de listagem dos usuários -->
 <section class="card">
     <header class="card-header" data-background-color="green">
@@ -37,15 +37,15 @@
                     <th data-column-id="StatusTexto">
                         Status
                     </th>
-                    <th data-column-id="commands" data-formatter="commands" data-sortable="false">
+                    <th data-column-id="commands">
 
                     </th>
                 </tr>
             </thead>
-            <tbody id="Resultado">                
-                    @{
-                        Html.RenderPartial("Resultado");
-                    }
+            <tbody id="Resultado">
+                @{
+                    Html.RenderPartial("Resultado");
+                }
             </tbody>
         </table>
     </div>
@@ -54,52 +54,35 @@
 
 <!-- Madal's -->
 <div class="container">
-    <div class="modal right fade" id="modalNovo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal right fade" id="modalNovo">
         @Html.Action("NovoUsuario")
     </div>
 </div>
-@*<div class="container">
-    <div class="modal right fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        @Html.Action("DetalhesUsuario")
-    </div>
-</div>
 <div class="container">
-    <div class="modal right fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        @Html.Action("Editar")
-    </div>
-</div>
-<div class="container">
-    <div class="modal" id="modalReset">
-        @Html.Action("ResetarSenha")
-    </div>
-</div>*@
-<div class="container">
-    <div class="modal" id="modalDelete">
-        @Html.Action("Deletar")
-    </div>
-</div>
-<div class="container">
-    <div class="modal" id="modalVerificar">
+    <div class="modal fade" id="modalVerificar">
         @Html.Action("Verificar")
     </div>
 </div>
 <div class="container">
-    <div class="modal" id="modalSucesso">
+    <div class="modal fade" id="modalSucesso">
         @Html.Action("Sucesso")
     </div>
 </div>
-<!-- Fim Modal's -->
+<div class="modal right fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"></div>
+<div class="modal right fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"></div>
+<div class="modal fade" id="modalReset"></div>
 
+<!-- Fim Modal's -->
 <!-- Chama os Modals -->
 @section scripts{
     <link rel="stylesheet" href="~/Content/jquery.bootgrid.css" />
     <script src="~/Scripts/jquery.bootgrid.js"></script>
-    <script src="~/Scripts/menucontexto.js"></script>
     <script>
         $(document).ready(function () {
             Buscar();
         });
     </script>
 }
+
 
 

@@ -25,7 +25,9 @@ namespace SISSDV1.Controllers
         //Abrir conexão
         void OpenAdConnection()
         {
-            ldapConnection = new DirectoryEntry(server, username, password);
+            string usuariologado = Request.Cookies["Username"].Value;
+            string senhalogado = Request.Cookies["Senha"].Value;
+            ldapConnection = new DirectoryEntry(server, usuariologado, senhalogado);
         }
 
         //Abrir conexão
@@ -39,7 +41,7 @@ namespace SISSDV1.Controllers
         public void ChangeServerIp()
         {
             if (Context.ServerIp == "10.0.210.8")
-                Context.ServerIp = "";
+                Context.ServerIp = "10.0.210.8";
             else
                 Context.ServerIp = "10.0.210.9";
         }
@@ -83,7 +85,7 @@ namespace SISSDV1.Controllers
             {
                 list = BuscarTodos();
             }
-            return PartialView("Resultado", list.OrderBy(u => u.NomeExibicao));
+            return PartialView("Resultado", list.OrderBy(u => u.NomeExibicao).Take(10));
         }
 
         //Buscar Todos os Usuários
@@ -102,8 +104,8 @@ namespace SISSDV1.Controllers
 
             // Adiciona Filtro
             search.Filter = "(sAMAccountType=805306368)";
-            search.PageSize = 6000;
-            search.SearchScope = SearchScope.Subtree;
+            search.SearchScope = SearchScope.Subtree;            
+            search.Asynchronous = true;
             SearchResultCollection resultCol = search.FindAll();
 
             // Checa se achou algo
@@ -111,19 +113,8 @@ namespace SISSDV1.Controllers
             {
                 foreach (SearchResult r in resultCol)
                 {
-                    if (r.Properties["userPrincipalName"][0] != null)
-                    {
                         User user = new User();
-
-
-                        try
-                        {
-                            user.objectSid = r.Properties["objectSid"][0].ToString();
-                        }
-                        catch
-                        {
-                            user.objectSid = "fuuuuuuuu";
-                        }
+                                       
 
                         try
                         {
@@ -171,12 +162,10 @@ namespace SISSDV1.Controllers
                         {
                             user.StatusTexto = "Desativado";
                         }
-
                         resultado.Add(user);
-                    }
                 }
-            }
-            CloseAdConnection();
+            }            
+            //CloseAdConnection();
             return resultado;
         }
 
@@ -198,8 +187,9 @@ namespace SISSDV1.Controllers
                 DirectorySearcher search = new DirectorySearcher(ldapConnection);
 
                 // Adiciona Filtro
-                search.PageSize = 50;
-                search.SizeLimit = 50;
+                search.PageSize = 10;
+                search.SizeLimit = 10;
+                search.Asynchronous = true;
                 search.Filter = "(sAMAccountType=805306368)";
                 search.Filter = "(&(sAMAccountType=805306368)(|(displayName=*" + usuarios+"*)"
                     +"(userPrincipalName=*"+ usuarios+ "*)(title=*" + usuarios + "*)))";
@@ -258,22 +248,22 @@ namespace SISSDV1.Controllers
             ViewBag.Departamento = new SelectList(departamentos, "Departamento", "Departamento");
 
             //Combobox Horario de Logon
-            var diassemana = new List<string> { "Domingo" ,"Segunda","Terça", "Quarta", "Quinta", "Sexta", "Sábado" };
-            ViewBag.DiaInicio = new SelectList(diassemana, "Segunda");
-            ViewBag.DiaFim = new SelectList(diassemana, "Sexta");
-            var horas = new List<string> { "01:00", "02:00", "03:00", "04:00", "05:00",
-                "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
-                "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00",
-                "20:00", "21:00", "22:00", "23:00", "00:00" };
-            ViewBag.HorarioInicio = new SelectList(horas, "08:00");
-            ViewBag.HorarioFim = new SelectList(horas, "18:00");
+            //var diassemana = new List<string> { "Domingo" ,"Segunda","Terça", "Quarta", "Quinta", "Sexta", "Sábado" };
+            //ViewBag.DiaInicio = new SelectList(diassemana, "Segunda");
+            //ViewBag.DiaFim = new SelectList(diassemana, "Sexta");
+            //var horas = new List<string> { "01:00", "02:00", "03:00", "04:00", "05:00",
+            //    "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
+            //    "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00",
+            //    "20:00", "21:00", "22:00", "23:00", "00:00" };
+            //ViewBag.HorarioInicio = new SelectList(horas, "08:00");
+            //ViewBag.HorarioFim = new SelectList(horas, "18:00");
             return View();
         }
 
         //Novo Usuário
         [HttpPost]
         public ActionResult CriarUsuario(string nome, string sobrenome, string diainicio, string diafim, string horarioinicio, string horariofim, string username, string cargo, string cpf, string telefone,
-            int chapa, string senha, string cidade, string unidade, string departamento, string subdepartamento)
+            string chapa, string senha, string cidade, string unidade, string departamento, string subdepartamento)
         {
             //Dados Conexão AD
             Context.ServerIp = "10.0.210.8";
@@ -355,6 +345,7 @@ namespace SISSDV1.Controllers
                 
                 //Seta a senha, depois salva alterações no AD
                 user.Invoke("SetPassword", senha);
+                user.Properties["pwdLastSet"].Value = 0;
                 user.CommitChanges();                
 
                 //Habilita o usuário
@@ -375,13 +366,15 @@ namespace SISSDV1.Controllers
         }
 
         private void AdicionarGrupos(List<GrupoAD> grupos, DirectoryEntry user)
-        {            
+        {
+            string usuariologado = Request.Cookies["Username"].Value;
+            string senhalogado = Request.Cookies["Senha"].Value;
             foreach (GrupoAD grupo in grupos)
             {                
-                DirectoryEntry group = new DirectoryEntry("LDAP://"+Context.ServerIp+"/"+grupo.GrupoNome, username, password);
+                DirectoryEntry group = new DirectoryEntry("LDAP://"+Context.ServerIp+"/"+grupo.GrupoNome, usuariologado, senhalogado);
                 group.Properties["member"].Add(user.Properties["distinguishedName"].Value);
                 group.CommitChanges();
-                CloseAdConnection(group);             
+                group.Close();      
             }            
         }
 
@@ -513,12 +506,11 @@ namespace SISSDV1.Controllers
                         ouList.Add(ou);
                     }
                 }
-                CloseAdConnection(entry);
+                entry.Close();
                 return ouList;
             }
             catch
             {
-                CloseAdConnection();
                 return ouList;
             }
         }
@@ -531,16 +523,18 @@ namespace SISSDV1.Controllers
 
         private List<OrganizationalUnit> BuscarUnidade(string cidade)
         {            
-            List<OrganizationalUnit> ouList = new List<OrganizationalUnit>();            
+            List<OrganizationalUnit> ouList = new List<OrganizationalUnit>();
+
+            //Dados Conexão com AD
+            Context.ServerIp = "10.0.210.8";
+            string username = "sissd.aplicacao@coc.com.br";
+            string password = "Pass@2017";
+            DirectoryEntry entry = new DirectoryEntry("LDAP://" +
+                Context.ServerIp + "/OU=Unidades,OU=" + cidade + ",OU=Cidades,DC=coc,DC=com,DC=br", username, password);
 
             try
             {
-                //Dados Conexão com AD
-                Context.ServerIp = "10.0.210.8";
-                string username = "sissd.aplicacao@coc.com.br";
-                string password = "Pass@2017";
-                DirectoryEntry entry = new DirectoryEntry("LDAP://" +
-                    Context.ServerIp + "/OU=Unidades,OU=" + cidade + ",OU=Cidades,DC=coc,DC=com,DC=br", username, password);
+                
 
                 DirectorySearcher search = new DirectorySearcher(entry);
 
@@ -558,12 +552,12 @@ namespace SISSDV1.Controllers
                         ouList.Add(ou);
                     }
                 }
-                CloseAdConnection(entry);
+                entry.Close();
                 return ouList;
             }
             catch
             {
-                CloseAdConnection();
+                entry.Close();
                 return ouList;
             }
         }
@@ -610,7 +604,6 @@ namespace SISSDV1.Controllers
             }
             catch
             {
-                CloseAdConnection();
                 return ouList;
             }
         }
@@ -654,12 +647,10 @@ namespace SISSDV1.Controllers
                         resultado.Gerente = r.Properties["manager"][0].ToString();
                     }
                 }
-                CloseAdConnection();
                 return resultado;
             }
             catch
             {
-                CloseAdConnection();
                 return resultado;
             }
         }
@@ -714,13 +705,12 @@ namespace SISSDV1.Controllers
             }
             catch
             {
-                CloseAdConnection();
                 return resultado;
             }
         }
 
 
-        //Retorna o Json Para Preencher o Gerente
+        //Retorna o Json Para Preencher o Usuario
         public ActionResult DetalhesUser(string email)
         {
             var buscado = new User();
@@ -755,10 +745,22 @@ namespace SISSDV1.Controllers
                 {
                     foreach (SearchResult r in resultCol)
                     {
+                        resultado.Nome = r.Properties["givenName"][0].ToString();
+                        resultado.Sobrenome = r.Properties["sn"][0].ToString();
                         resultado.NomeExibicao = r.Properties["displayName"][0].ToString();
                         resultado.Email = r.Properties["mail"][0].ToString();
                         resultado.Cargo = r.Properties["title"][0].ToString();
                         resultado.Username = r.Properties["sAMAccountName"][0].ToString();
+                        resultado.Chapa = r.Properties["description"][0].ToString();
+                        try
+                        {
+                            resultado.CPF = r.Properties["info"][0].ToString();
+                        }
+                        catch
+                        {
+                            resultado.CPF = "Sem CPF";
+                        }
+                        resultado.SubDepartamento = r.Properties["department"][0].ToString();
                         resultado.Pais = r.Properties["c"][0].ToString();
                         resultado.Estado = r.Properties["st"][0].ToString();
                         resultado.Cidade = r.Properties["l"][0].ToString();
@@ -780,19 +782,13 @@ namespace SISSDV1.Controllers
             }
             catch
             {
-                CloseAdConnection();
                 return resultado;
             }
         }
 
-        public ActionResult ResetarSenha()
+        public ActionResult ResetarSenha(string email)
         {
-            return View();
-        }
-
-        public ActionResult ResetarSenha(string username)
-        {
-            return View(new User { Username = username });
+            return View(new User { Email = email });
         }
 
         //Resetar Senha
@@ -807,13 +803,14 @@ namespace SISSDV1.Controllers
                 DirectorySearcher search = new DirectorySearcher(ldapConnection);
 
                 // Add filter
-                search.Filter = "(mail=*"+username+"*)";
+                search.Filter = "(userPrincipalName=*" + username+"*)";
                 search.SearchScope = SearchScope.Subtree;
 
                 SearchResult searchResult = search.FindOne();
                 DirectoryEntry user = searchResult.GetDirectoryEntry();
 
                 user.Invoke("SetPassword", password);
+                user.Properties["pwdLastSet"].Value = 0;
                 user.CommitChanges();
 
 
@@ -825,37 +822,76 @@ namespace SISSDV1.Controllers
             }
             return Json(JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Editar(User user)
-        {
-            var cidades = new List<OrganizationalUnit>();
-            ViewBag.Cidade = new SelectList(cidades, "Cidade", "Cidade");
-            var unidades = new List<OrganizationalUnit>();
-            ViewBag.Unidade = new SelectList(unidades, "Unidade", "Unidade");
-            var departamentos = new List<OrganizationalUnit>();
-            ViewBag.Departamento = new SelectList(departamentos, "Departamento", "Departamento");
-
-            //Combobox Horario de Logon
-            var diassemana = new List<string> { "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado" };
-            ViewBag.DiaInicio = new SelectList(diassemana, "Segunda");
-            ViewBag.DiaFim = new SelectList(diassemana, "Sexta");
-            var horas = new List<string> { "01:00", "02:00", "03:00", "04:00", "05:00",
-                "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
-                "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00",
-                "20:00", "21:00", "22:00", "23:00", "00:00" };
-            ViewBag.HorarioInicio = new SelectList(horas, "08:00");
-            ViewBag.HorarioFim = new SelectList(horas, "18:00");
-            return View(user);
-        }
-
-        public ActionResult ComparaUserADcomUserRM()
-        {
-            return View();
-        }
-
+                       
         public ActionResult Deletar()
         {
             return View();
+        }
+
+        public ActionResult EditarUsuario(string email)
+        {            
+            var buscado = new User();
+            buscado = Detalhes(email);
+
+            return View(buscado);
+        }
+
+        public ActionResult EditUser(string username, string nome, string sobrenome, string chapa, string cargo, string subdepartamento,
+            string cpf, string telefone)
+        {
+            string usuariologado = Request.Cookies["Username"].Value;
+            string senhalogado = Request.Cookies["Senha"].Value;
+
+            //Dados Padrões
+            string NomeExibicao = nome + " " + sobrenome;
+            try
+            {
+                // Open connection with AD domain
+                OpenAdConnection();
+
+                // Create the object "search"
+                DirectorySearcher search = new DirectorySearcher(new DirectoryEntry(server, usuariologado, senhalogado));
+
+                // Add filter
+                search.Filter = "(userPrincipalName=*" + username + "*)";
+                search.SearchScope = SearchScope.Subtree;
+
+
+                SearchResult searchResult = search.FindOne();
+
+                DirectoryEntry user = new DirectoryEntry(searchResult.Path, usuariologado, senhalogado);
+
+                //Adiciona os atributos ao usuário
+                //Aba Geral                
+                user.Properties["givenName"].Value = nome;
+                user.Properties["sn"].Value = sobrenome;
+                user.Properties["displayName"].Value = NomeExibicao;
+                user.Properties["description"].Value = chapa;
+                //user.Properties["name"].Value = NomeExibicao;                                              
+                
+                //Aba Telefones
+                user.Properties["ipPhone"].Value = telefone;
+                user.Properties["info"].Value = cpf;
+
+                //Aba Organização
+                user.Properties["title"].Value = cargo;
+                user.Properties["department"].Value = subdepartamento;
+
+                //Commit Nas alterações
+                user.CommitChanges();
+               
+                user.Rename("CN=" + NomeExibicao);
+
+                //Fecha conexão
+                user.Close();
+                user.Dispose();
+                
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DetalhesUsuario(string email)
@@ -866,7 +902,12 @@ namespace SISSDV1.Controllers
             return View(buscado);
         }
 
-        public ActionResult Verificar()
+        public ActionResult Verificar(string email)
+        {
+            return View(new User { Email = email });
+        }
+
+        public ActionResult ComparaUserADcomUserRM()
         {
             return View();
         }

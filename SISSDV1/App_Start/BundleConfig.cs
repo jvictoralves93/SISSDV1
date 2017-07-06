@@ -46,8 +46,8 @@ namespace SISSDV1
                       "~/Scripts/filtrotabelas.js",
                       "~/Scripts/funcoes.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/modal").Include(
-                        "~/Scripts/modal.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/modal").Include(
+            //            "~/Scripts/modal.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js"));
