@@ -10,7 +10,6 @@ namespace SISSDV1
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.contextMenu.js",
                         "~/Scripts/jquery.ui.position.js"));            
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -40,15 +39,11 @@ namespace SISSDV1
                       "~/Scripts/jquery-3.1.0.min.js",
                       "~/Scripts/jquery2.0.2.js",
                       "~/Scripts/jquery-1.10.2.js",
-                      "~/Scripts/jquery.contextMenu.js",
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/modal.js",
                       "~/Scripts/filtrotabelas.js",
                       "~/Scripts/funcoes.js"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/modal").Include(
-            //            "~/Scripts/modal.js"));
-
+            
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js"));
 

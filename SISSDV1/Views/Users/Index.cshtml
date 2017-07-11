@@ -37,6 +37,9 @@
                     <th data-column-id="StatusTexto">
                         Status
                     </th>
+                    <th data-column-id="Chapa">
+                        Chapa
+                    </th>
                     <th data-column-id="commands">
 
                     </th>
@@ -55,22 +58,20 @@
 <!-- Madal's -->
 <div class="container">
     <div class="modal right fade" id="modalNovo">
-        @Html.Action("NovoUsuario")
     </div>
 </div>
 <div class="container">
     <div class="modal fade" id="modalVerificar">
-        @Html.Action("Verificar")
     </div>
 </div>
 <div class="container">
     <div class="modal fade" id="modalSucesso">
-        @Html.Action("Sucesso")
     </div>
 </div>
 <div class="modal right fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"></div>
 <div class="modal right fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"></div>
 <div class="modal fade" id="modalReset"></div>
+<div class="modal fade" id="modalVerificaResult"></div>
 
 <!-- Fim Modal's -->
 <!-- Chama os Modals -->

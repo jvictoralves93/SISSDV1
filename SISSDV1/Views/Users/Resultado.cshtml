@@ -15,12 +15,14 @@
         <td>
             @Html.DisplayFor(i => item.StatusTexto)
         </td>
-
+        <td>
+            @Html.DisplayFor(i => item.Chapa)
+        </td>
         <td>
             <button type="button" alt="Editar Usuário" class="btn btn-xs btn-primary" onclick="editar('@item.Email')"><span class="ion-edit"></span></button>
             <button type="button" alt="Detalhes Usuário" class="btn btn-xs btn-warning" onclick="detalheModal('@item.Email')"><span class="ion-information"></span></button>
             <button type="button" alt="Resetar Senha" class="btn btn-xs btn-danger" onclick="modalreset('@item.Email')"><span class="ion-key"></span></button>
-            <button type="button" alt="Verificar Usuário" class="btn btn-xs btn-info" onclick="verificar('@item.Email')"><span class="ion-checkmark"></span></button>
+            <button type="button" alt="Verificar Usuário" class="btn btn-xs btn-info" onclick="verificar('@item.Chapa')"><span class="ion-checkmark"></span></button>
         </td>
     </tr>    
 }

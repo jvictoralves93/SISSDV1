@@ -25,7 +25,9 @@ namespace SISSDV1.Controllers
         //Abrir conexão
         void OpenAdConnection()
         {
-            ldapConnection = new DirectoryEntry(server, username, password);
+            string usuariologado = Request.Cookies["Username"].Value;
+            string senhalogado = Request.Cookies["Senha"].Value;
+            ldapConnection = new DirectoryEntry(server, usuariologado, senhalogado);
         }
 
         //Abrir conexão
@@ -39,7 +41,7 @@ namespace SISSDV1.Controllers
         public void ChangeServerIp()
         {
             if (Context.ServerIp == "10.0.210.8")
-                Context.ServerIp = "";
+                Context.ServerIp = "10.0.210.8";
             else
                 Context.ServerIp = "10.0.210.9";
         }
@@ -157,26 +159,16 @@ namespace SISSDV1.Controllers
             }
         }
 
-        public ActionResult Novo()
-        {
-            var cidades = new List<Models.OrganizationalUnit>();
-            ViewBag.Cidade = new SelectList(cidades, "Cidade", "Cidade");
-            var unidades = new List<OrganizationalUnit>();
-            ViewBag.Unidade = new SelectList(unidades, "Unidade", "Unidade");
-            var departamentos = new List<OrganizationalUnit>();
-            ViewBag.Departamento = new SelectList(departamentos, "Departamento", "Departamento");
-            return View();
-        }
-
-        public ActionResult Editar()
-        {
-            return PartialView();
-        }
-
-        public ActionResult Deletar()
-        {
-            return PartialView();
-        }
+        //public ActionResult Novo()
+        //{
+        //    var cidades = new List<Models.OrganizationalUnit>();
+        //    ViewBag.Cidade = new SelectList(cidades, "Cidade", "Cidade");
+        //    var unidades = new List<OrganizationalUnit>();
+        //    ViewBag.Unidade = new SelectList(unidades, "Unidade", "Unidade");
+        //    var departamentos = new List<OrganizationalUnit>();
+        //    ViewBag.Departamento = new SelectList(departamentos, "Departamento", "Departamento");
+        //    return View();
+        //}
 
         public ActionResult Detalhes()
         {

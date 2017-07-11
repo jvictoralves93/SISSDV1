@@ -64,7 +64,7 @@ namespace SISSDV1.Controllers
         public ActionResult Escala()
         {
             List<EscalaSabado> escala = new List<EscalaSabado>();
-            escala = db.Escalas.Where(i => i.start.Month >= DateTime.Now.Month).Take(4).ToList();
+            escala = db.Escalas.Where(i => i.start.Month >= DateTime.Now.Month).Take(5).ToList();
 
             return PartialView(escala);
         }                

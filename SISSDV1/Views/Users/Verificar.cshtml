@@ -10,25 +10,49 @@
         </button>
         Verificar Usuário Com RM
     </div>
-    <div class="modal-body card-body">
-        @using (Html.BeginForm("VerificarUser", "Users", FormMethod.Post))
-        {
+    <div class="modal-body card-body text-center">
+        <form id="form-verificauser" method="post">
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            @Html.HiddenFor(model => model.Email)
+            @Html.HiddenFor(model => model.Chapa, new { name = "chapauser", id = "chapauser" })
             <h5>Deseja confirmar a operação?</h5>
 
             <div class="row">
-                <div class="">
-                    <div class="pull-right" style="margin-top: 2%;">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cencelar</button>
-                        <input type="submit" value="Confirmar" class="btn btn-primary btn-sm" id="Confirmar" />
-                    </div>
+                <div class="text-center" style="margin-top: 2%;">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" value="Confirmar" class="btn btn-primary btn-sm" id="Confirmar" />
                 </div>
             </div>
-        }
+        </form>
     </div>
     <div class="modal-footer card-footer">
     </div>
 </div><!-- /.modal-content -->
+<script>
+var formverifica = $("#form-verificauser");
+formverifica.submit(function ComparaUserADcomUserRM() {
+    var url = "ComparaUserADcomUserRM";
+    var chapa = $("#chapauser").val();
+    //debugger;
+    $.ajax({
+        method: "POST",
+        url: url,
+        data: { chapa },
+        cache: false,
+        beforeSend: function (xhr) {
+            $("#modalVerificaResult").html('<div class="loading text-center p-40" style="position: absolute;left: 50%;top: 50%;"><img src="../img/load.gif" height="80" width="80"/></div>');
+            $("#modalVerificar").modal("hide");
+        }
+    })
+      .done(function (html) {
+          $("#modalVerificaResult").html(html);
+          $("#modalVerificaResult").modal("show");
+      })
+        .fail(function () {
+            $("#modalVerificaResult").html('<p class="error" style="position: absolute;left: 50%;top: 50%;"><strong>Opa!</strong> Não foi possível abrir a página. Tente novamente mais tarde.</p>');
+        });
+    $("#modalVerificaResult").modal("show");
+    return false;
+});
+</script>

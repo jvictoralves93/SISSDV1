@@ -14,6 +14,8 @@ namespace SISSDV1.Controllers
 {
     public class UsersController : Controller
     {
+        private BancoRM db = new BancoRM();
+
         //------------------------------- Funções AD ------------------------------------------//
 
         //Variáveis de conexão
@@ -114,15 +116,21 @@ namespace SISSDV1.Controllers
                 foreach (SearchResult r in resultCol)
                 {
                         User user = new User();
-                                       
 
+                        try
+                        {
+                            user.Chapa = r.Properties["description"][0].ToString();
+                        }
+                        catch
+                        {
+                            user.Email = "Sem chapa";
+                        }
                         try
                         {
                             user.Email = r.Properties["userPrincipalName"][0].ToString();
                         }
                         catch
                         {
-
                             user.Email = "Sem Email";
                         }
                         try
@@ -131,7 +139,6 @@ namespace SISSDV1.Controllers
                         }
                         catch
                         {
-
                             user.NomeExibicao = "Sem Nome";
                         }
 
@@ -141,7 +148,6 @@ namespace SISSDV1.Controllers
                         }
                         catch
                         {
-
                             user.Cargo = "Sem Cargo";
                         }
                         try
@@ -202,8 +208,30 @@ namespace SISSDV1.Controllers
                     foreach (SearchResult r in resultCol)
                     {
                         User user = new User();
-                        user.Email = r.Properties["userPrincipalName"][0].ToString();
-                        user.NomeExibicao = r.Properties["cn"][0].ToString();
+                        try
+                        {
+                            user.Chapa = r.Properties["description"][0].ToString();
+                        }
+                        catch
+                        {
+                            user.Email = "Sem Chapa";
+                        }
+                        try
+                        {
+                            user.Email = r.Properties["userPrincipalName"][0].ToString();
+                        }
+                        catch
+                        {
+                            user.Email = "Sem Email";
+                        }
+                        try
+                        {
+                            user.NomeExibicao = r.Properties["cn"][0].ToString();
+                        }
+                        catch
+                        {
+                            user.NomeExibicao = "Sem Nome";
+                        }
                         try
                         {
                             user.Cargo = r.Properties["title"][0].ToString();
@@ -414,7 +442,12 @@ namespace SISSDV1.Controllers
                         resultado.PaginaWeb = r.Properties["wWWHomePage"][0].ToString();
                         resultado.CEP = r.Properties["postalCode"][0].ToString();
                         resultado.Telefone = r.Properties["telephoneNumber"][0].ToString();
-                        resultado.Email = r.Properties["mail"][0].ToString();
+
+                        int tamanho = r.Properties["mail"][0].ToString().IndexOf("@");
+
+                        resultado.Email = r.Properties["mail"][0].ToString().Substring(tamanho);
+
+
                         resultado.Endereco = r.Properties["streetAddress"][0].ToString();
                         resultado.Gerente = r.Properties["manager"][0].ToString();
                         resultado.Username = r.Properties["samAccountName"][0].ToString();
@@ -902,19 +935,97 @@ namespace SISSDV1.Controllers
             return View(buscado);
         }
 
-        public ActionResult Verificar(string email)
+        public ActionResult Verificar(string chapa)
         {
-            return View(new User { Email = email });
+            return View(new User { Chapa = chapa });
         }
 
-        public ActionResult ComparaUserADcomUserRM()
+        public ActionResult ComparaUserADcomUserRM(string chapa)
         {
+            string usuariologado = Request.Cookies["Username"].Value;
+            string senhalogado = Request.Cookies["Senha"].Value;
+
+            Funcionarios funcionario = new Funcionarios();
+            funcionario = db.Funcionarios.Where(i => i.CHAPA.Contains(chapa)).ToList().First();
+
+            // Open connection with AD domain
+            OpenAdConnection();
+
+            // Create the object "search"
+            DirectorySearcher search = new DirectorySearcher(ldapConnection);
+
+            // Add filter
+            search.Filter = "(description=*" + chapa + "*)";
+            search.SearchScope = SearchScope.Subtree;
+
+            SearchResult searchResult = search.FindOne();
+            
+            if (searchResult != null)
+            {
+                DirectoryEntry user = new DirectoryEntry(searchResult.Path, usuariologado, senhalogado);
+
+                string displayname = removerAcentos(user.Properties["displayName"].Value.ToString().ToUpper());
+
+                if (string.Equals(displayname, removerAcentos(funcionario.NOME.ToUpper())))
+                {
+                    ViewBag.Nome = "Nome está certo";
+                }
+                else
+                {
+                    ViewBag.Nome = "Nome está Errado";
+                    //user.Rename("CN=" + funcionario.NOME);
+                }
+                if (string.Equals(user.Properties["title"].Value.ToString().ToUpper(), funcionario.CARGO.ToUpper()))
+                {
+                    ViewBag.Cargo = "Cargo está certo";
+                }
+                else
+                {
+                    ViewBag.Cargo = "Cargo está Errado";
+                }
+                if (string.Equals(user.Properties["department"].Value.ToString().ToUpper(), funcionario.SECAO.ToUpper()))
+                {
+                    ViewBag.Departamento = "Departamento está certo";
+                }
+                else
+                {
+                    ViewBag.Departamento = "Departamento está Errado";
+                }
+                if (string.Equals(user.Properties["info"].Value.ToString().ToUpper(), funcionario.CPF.ToUpper()))
+                {
+                    ViewBag.CPF = "CPF está certo";
+                }
+                else
+                {
+                    ViewBag.CPF = "CPF está Errado";
+                }
+            }            
+
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ResultadoComparacao()
+        {
+
             return View();
         }
 
         public ActionResult Sucesso()
         {
-            return PartialView();
+            return View();
+        }
+
+        //Remover Acentuação
+        public static string removerAcentos(string texto)
+        {
+            string comAcentos = "ÄÅÁÂÀÃäáâàãÉÊËÈéêëèÍÎÏÌíîïìÖÓÔÒÕöóôòõÜÚÛüúûùÇç";
+            string semAcentos = "AAAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUuuuuCc";
+
+            for (int i = 0; i < comAcentos.Length; i++)
+            {
+                texto = texto.Replace(comAcentos[i].ToString(), semAcentos[i].ToString());
+            }
+            return texto;
         }
 
         //------------------------------- Fim Funções Controller ------------------------------------------//

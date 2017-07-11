@@ -108,9 +108,8 @@ $('#modalEdit').on('hidden.bs.modal', function () {
     $("#modalEdit").empty();
 });
 
-//Editar Usuário;
-function verificar(email) {
-    var resul = email;
+//Verificar Usuário;
+function verificar(chapa) {
     $("#modalVerificar").modal("show");
 
     var url = "Verificar";
@@ -118,7 +117,7 @@ function verificar(email) {
     $.ajax({
         method: "POST",
         url: url,
-        data: { email },
+        data: { chapa },
         cache: false,
         beforeSend: function (xhr) {
             $("#modalVerificar").html('<div class="loading text-center p-40" style="position: absolute;left: 50%;top: 50%;"><img src="../img/load.gif" height="80" width="80"/></div>');
@@ -217,4 +216,32 @@ function ModalDeleteHost(hostname) {
             $("#modalDeleteComp").html('<p class="error" style="position: absolute;left: 50%;top: 50%;"><strong>Opa!</strong> Não foi possível abrir a página. Tente novamente mais tarde.</p>');
         });
     $("#modalDeleteComp").modal("show");
+};
+
+
+$('#modalSucesso').on('hidden.bs.modal', function () {
+    $("#modalSucesso").empty();
+});
+
+//Novo Usuário
+function ModalSucesso() {
+    $("#modalSucesso").modal("show");
+
+    var url = "Sucesso";
+    //debugger;
+    $.ajax({
+        method: "POST",
+        url: url,
+        cache: false,
+        beforeSend: function (xhr) {
+            $("#modalSucesso").html('<div class="loading text-center p-40" style="position: absolute;left: 50%;top: 50%;"><img src="../img/load.gif" height="80" width="80"/></div>');
+        }
+    })
+      .done(function (html) {
+          $("#modalSucesso").html(html);
+      })
+        .fail(function () {
+            $("#modalSucesso").html('<p class="error" style="position: absolute;left: 50%;top: 50%;"><strong>Opa!</strong> Não foi possível abrir a página. Tente novamente mais tarde.</p>');
+        });
+    $("#modalSucesso").modal("show");
 };

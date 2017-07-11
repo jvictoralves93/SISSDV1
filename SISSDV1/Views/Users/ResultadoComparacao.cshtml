@@ -1,0 +1,36 @@
+﻿@model SISSDV1.Models.User
+@{
+    Layout = null;
+}
+<div class="modal-dialog modal-content card" style="width: 300px; height:300px;">
+    <div class="card-header" data-background-color="green">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+        </button>
+        Resultado Valores Comparados
+    </div>
+    <div class="modal-body card-body text-center">
+        @using (Html.BeginForm("#", "#", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @*@Html.HiddenFor(model => model.Chapa, new { name = "chapauser", id = "chapauser" })*@
+            <h5>Deseja confirmar a operação?</h5>
+
+            <p>@ViewBag.Nome</p>
+            <p>@ViewBag.Cargo</p>
+            <p>@ViewBag.Departamento</p>
+            <p>@ViewBag.CPF</p>
+
+            <div class="row">
+                <div class="text-center" style="margin-top: 2%;">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" value="Confirmar" class="btn btn-primary btn-sm" id="Confirmar" />
+                </div>
+            </div>
+        }
+    </div>
+    <div class="modal-footer card-footer">
+    </div>
+</div><!-- /.modal-content -->

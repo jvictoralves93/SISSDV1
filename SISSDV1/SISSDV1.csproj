@@ -1029,7 +1029,6 @@
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.app.js" />
     <Content Include="Scripts\jquery.bootgrid.js" />
-    <Content Include="Scripts\jquery.contextMenu.js" />
     <Content Include="Scripts\jquery.mask.js" />
     <Content Include="Scripts\jquery.nicescroll.js" />
     <Content Include="Scripts\jquery.scrollTo.min.js" />
@@ -1881,6 +1880,7 @@
     <Content Include="Views\Home\ResumoUnidades.cshtml" />
     <Content Include="Views\Escala\ModalExcluir.cshtml" />
     <Content Include="Views\Escala\Sucesso.cshtml" />
+    <Content Include="Views\Users\ResultadoComparacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

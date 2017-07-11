@@ -2,7 +2,7 @@
 
 @foreach (var item in Model)
 {    
-    <tr style="cursor: pointer;" class="context-menu-one resultado">
+    <tr class="resultado">
         <td>
             @Html.DisplayFor(i => item.NomeComputador)
         </td>
@@ -17,14 +17,14 @@
 
     </tr>    
     
-<script>
+@*<script>
 $(function () {
     $.contextMenu({
         selector: '.context-menu-one',
         callback: function (key, options) {
             if (key == "Resetar Host") {
                 ModalResetHost('@item.Hostname');
-            } else if (key == "Editar") {
+            } else if (key == "Excluir") {
                 ModalDeleteHost('@item.Hostname');
             }
         },
@@ -37,5 +37,5 @@ $(function () {
     });
 
 });
-</script>
+</script>*@
 }

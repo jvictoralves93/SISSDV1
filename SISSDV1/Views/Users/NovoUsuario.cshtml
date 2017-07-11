@@ -169,7 +169,7 @@ form.submit(function CriarUsuario() {
             data: { nome, sobrenome, username, diainicio, diafim, horarioinicio, horariofim, cargo, subdepartamento, telefone, cpf, chapa, senha, cidade, unidade, departamento },
             success: function () {
                 $("#modalNovo").modal("hide");
-                $("#modalSucesso").modal("show");
+                ModalSucesso();
             }
         });
     }

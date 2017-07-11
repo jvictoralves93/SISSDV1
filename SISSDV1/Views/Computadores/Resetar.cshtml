@@ -3,7 +3,7 @@
     Layout = null;
     ViewBag.Title = "Resetar Computador";
 }
-<div class="modal-dialog modal-content card" style="width: 400px; height:300px;">
+<div class="modal-dialog modal-content card" style="width: 300px; height:200px;">
     <div class="card-header" data-background-color="green">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
@@ -15,13 +15,13 @@
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            @Html.HiddenFor(model => model.Hostname, new { name = "hostrest", id = "hostrest" })
+            @Html.HiddenFor(model => model.Hostname, new { name = "hostreset", id = "hostreset" })
             <div class="row text-center">
                 <h5>Confirmar Operação?</h5>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="pull-right" style="margin-top: 2%;">
+                    <div class="text-center" style="margin-top: 2%;">
                         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
                         <input type="submit" value="Confirmar" class="btn btn-primary btn-sm" id="confirmar"/>
                     </div>
@@ -39,7 +39,7 @@
 var formresethost = $("#form-resethost");
 formresethost.submit(function ResetHost() {
     if (formresethost.valid()) {
-        var hostname = $('#hostrest').val();
+        var hostname = $('#hostreset').val();
         $.ajax({
             url: 'ResetHost',
             type: "POST",
