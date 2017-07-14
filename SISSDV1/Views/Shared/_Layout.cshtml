@@ -114,11 +114,11 @@
             </button>
 
             <!-- Pesquisa -->
-            @using (Html.BeginForm("Pesquisar", "Home", FormMethod.Post, new { @class = "pull-left col-md-8 form-group form-group-sm form-black is-empty", role = "search" }))
+            @*@using (Html.BeginForm("Pesquisar", "Home", FormMethod.Post, new { @class = "pull-left col-md-8 form-group form-group-sm form-black is-empty", role = "search" }))
             {
                 <input type="text" id="pesquisa" name="pesquisa"
                        placeholder="Pesquisar..." class="form-control" />
-            }
+            }*@
             <!-- Right navbar -->
             <ul class="navbar-right top-menu pull-right">
                 <li class="dropdown">
@@ -135,21 +135,20 @@
             <!-- End right navbar -->
         </header>
         <!-- Header Ends -->
-        <div class="body-content" style="margin-bottom: 5%;">
+        <div class="body-content" style="margin: 1%; margin-bottom: 7%;">
             @RenderBody()
         </div>
 
 
         <!-- Footer Start -->
-        <footer id="footer" class="footer text-center navbar-fixed-bottom container"
-                style="background-color:#ffffff; padding: 15px; position: absolute; margin-left: 0;">
+        <footer id="footer" class="footer text-center navbar-fixed-bottom"
+                style="background-color:#ffffff; padding: 15px; margin-left: 0;">
             <p style="color:#000000">&copy; 2017 - João Victor de Sá Alves</p>
         </footer>
         <!-- Footer Ends -->
     </section>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/site")

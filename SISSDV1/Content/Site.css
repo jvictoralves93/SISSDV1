@@ -46,10 +46,13 @@ tr:hover, tr:active{
 *******************************/
 .modal.left .modal-dialog,
 .modal.right .modal-dialog {
-	position: fixed;
+	position: absolute;
 	margin: auto;
-	width: 800px;
-	height: 100%;
+	width: auto;
+    min-width: 700px;
+	height: auto;
+    min-height: 609px;
+    margin-top: 4%;
 	-webkit-transform: translate3d(0%, 0, 0);
 		-ms-transform: translate3d(0%, 0, 0);
 		    -o-transform: translate3d(0%, 0, 0);
@@ -67,10 +70,10 @@ tr:hover, tr:active{
     overflow-y: initial !important
 }
 .modal-body{
-    height: 550px;
+    height: auto;
     overflow-y: auto;
 }
-	
+
 
 /*Left*/
 .modal.left.fade .modal-dialog{
@@ -120,9 +123,23 @@ tr:hover, tr:active{
 
 @media screen and (max-width: 768px) {
     .contentmodal {
-        width: 500px;
-        left: 330px;        
+        width: auto;        
     }
+
+    .modal.left .modal-dialog,
+    .modal.right .modal-dialog {
+	position: absolute;
+	margin: auto;
+	width: auto;
+    min-width: 100px;
+	height: auto;
+    min-height: 600px;
+    margin-top: 10%;
+	-webkit-transform: translate3d(0%, 0, 0);
+		-ms-transform: translate3d(0%, 0, 0);
+		    -o-transform: translate3d(0%, 0, 0);
+		    transform: translate3d(0%, 0, 0);
+}
 }
 
 /*Calendário*/

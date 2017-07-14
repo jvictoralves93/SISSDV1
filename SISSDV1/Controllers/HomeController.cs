@@ -61,6 +61,11 @@ namespace SISSDV1.Controllers
             return View("Index");
         }
 
+        public ActionResult LinksUteis()
+        {
+            return PartialView();
+        }
+
         public ActionResult Escala()
         {
             List<EscalaSabado> escala = new List<EscalaSabado>();

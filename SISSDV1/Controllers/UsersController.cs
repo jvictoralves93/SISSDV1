@@ -153,7 +153,7 @@ namespace SISSDV1.Controllers
                         try
                         {
                             int status = (int)r.Properties["userAccountControl"][0];
-                            if (status == 0x0200)
+                            if (status == 0x0200 || status == 0x0220)
                             {
                                 user.Status = true;
                                 user.StatusTexto = "Ativado";
@@ -242,7 +242,7 @@ namespace SISSDV1.Controllers
                             user.Cargo = "Sem Cargo";
                         }
                         int status = (int)r.Properties["userAccountControl"][0];
-                        if (status == 0x0200)
+                        if (status == 0x0200 || status == 0x0220)
                         {
                             user.Status = true;
                             user.StatusTexto = "Ativado";
@@ -806,6 +806,19 @@ namespace SISSDV1.Controllers
                         resultado.Gerente = r.Properties["manager"][0].ToString();
                         resultado.Username = r.Properties["samAccountName"][0].ToString();
                         resultado.Unidade = r.Properties["company"][0].ToString();
+
+                        int status = (int)r.Properties["userAccountControl"][0];
+                        if (status == 0x0200 || status == 0x0220)
+                        {
+                            resultado.Status = true;
+                            resultado.StatusTexto = "Ativado";
+                        }
+                        else
+                        {
+                            resultado.Status = false;
+                            resultado.StatusTexto = "Desativado";
+                        }
+
                         string gerentesearch = resultado.Gerente;
                         User gerente = ProcurarGerente(gerentesearch);
                         resultado.Gerente = gerente.NomeExibicao;
@@ -855,11 +868,7 @@ namespace SISSDV1.Controllers
             }
             return Json(JsonRequestBehavior.AllowGet);
         }
-                       
-        public ActionResult Deletar()
-        {
-            return View();
-        }
+                 
 
         public ActionResult EditarUsuario(string email)
         {            
@@ -945,6 +954,102 @@ namespace SISSDV1.Controllers
             string usuariologado = Request.Cookies["Username"].Value;
             string senhalogado = Request.Cookies["Senha"].Value;
 
+            int contador = 0;
+
+            try
+            {
+                Funcionarios funcionario = new Funcionarios();
+                funcionario = db.Funcionarios.Where(i => i.CHAPA.Contains(chapa)).ToList().First();
+
+                // Open connection with AD domain
+                OpenAdConnection();
+
+                // Create the object "search"
+                DirectorySearcher search = new DirectorySearcher(ldapConnection);
+
+                // Add filter
+                search.Filter = "(description=*" + chapa + "*)";
+                search.SearchScope = SearchScope.Subtree;
+
+                SearchResult searchResult = search.FindOne();
+
+                if (searchResult != null)
+                {
+                    DirectoryEntry user = new DirectoryEntry(searchResult.Path, usuariologado, senhalogado);
+
+                    string displayname = removerAcentos(user.Properties["displayName"].Value.ToString().ToUpper());
+
+                    if (string.Equals(displayname, removerAcentos(funcionario.NOME.ToUpper())))
+                    {
+                        ViewBag.Nome = "Nome está certo";
+                        contador++;
+                    }
+                    else
+                    {
+                        ViewBag.Nome = "Nome está Errado";
+                    }
+                    if (string.Equals(user.Properties["title"].Value.ToString().ToUpper(), funcionario.CARGO.ToUpper()))
+                    {
+                        ViewBag.Cargo = "Cargo está certo";
+                        contador++;
+                    }
+                    else
+                    {
+                        ViewBag.Cargo = "Cargo está Errado";
+                    }
+                    if (string.Equals(user.Properties["department"].Value.ToString().ToUpper(), funcionario.SECAO.ToUpper()))
+                    {
+                        ViewBag.Departamento = "Departamento está certo";
+                        contador++;
+                    }
+                    else
+                    {
+                        ViewBag.Departamento = "Departamento está Errado";
+                    }
+                    if (string.Equals(user.Properties["info"].Value.ToString().ToUpper(), funcionario.CPF.ToUpper()))
+                    {
+                        ViewBag.CPF = "CPF está certo";
+                        contador++;
+                    }
+                    else
+                    {
+                        ViewBag.CPF = "CPF está Errado";
+                    }
+                    if (string.Equals(user.Properties["physicalDeliveryOfficeName"].Value.ToString().Substring(6).ToUpper(), funcionario.FILIAL.Substring(4).ToUpper()))
+                    {
+                        ViewBag.Unidade = "Unidade está certo";
+                        contador++;
+                    }
+                    else
+                    {
+                        ViewBag.Unidade = "Unidade está Errado";
+                    }
+                }
+                if (contador == 5)
+                {
+                    ViewBag.Result = "Certo";
+                }
+                else
+                {
+                    ViewBag.Result = "Errado";
+                }
+
+            }
+            catch
+            {
+                ViewBag.Result = "FuncDesligado";
+            }                                          
+                    
+            return View("ResultadoComparacao", new User { Chapa = chapa });
+        }
+
+        //Corrige os Dados do usuário no AD
+        public ActionResult Corrigir(string chapa)
+        {
+            string usuariologado = Request.Cookies["Username"].Value;
+            string senhalogado = Request.Cookies["Senha"].Value;
+            
+
             Funcionarios funcionario = new Funcionarios();
             funcionario = db.Funcionarios.Where(i => i.CHAPA.Contains(chapa)).ToList().First();
 
@@ -959,7 +1064,7 @@ namespace SISSDV1.Controllers
             search.SearchScope = SearchScope.Subtree;
 
             SearchResult searchResult = search.FindOne();
-            
+
             if (searchResult != null)
             {
                 DirectoryEntry user = new DirectoryEntry(searchResult.Path, usuariologado, senhalogado);
@@ -968,38 +1073,51 @@ namespace SISSDV1.Controllers
 
                 if (string.Equals(displayname, removerAcentos(funcionario.NOME.ToUpper())))
                 {
-                    ViewBag.Nome = "Nome está certo";
+                    ViewBag.Nome = "Nada a Fazer";
                 }
                 else
                 {
-                    ViewBag.Nome = "Nome está Errado";
-                    //user.Rename("CN=" + funcionario.NOME);
+                    user.Properties["displayName"].Value = funcionario.NOME;
+                    user.Rename("CN=" + funcionario.NOME);
                 }
                 if (string.Equals(user.Properties["title"].Value.ToString().ToUpper(), funcionario.CARGO.ToUpper()))
                 {
-                    ViewBag.Cargo = "Cargo está certo";
+                    ViewBag.Cargo = "Nada a Fazer";
                 }
                 else
                 {
-                    ViewBag.Cargo = "Cargo está Errado";
+                    user.Properties["title"].Value = funcionario.CARGO;
                 }
                 if (string.Equals(user.Properties["department"].Value.ToString().ToUpper(), funcionario.SECAO.ToUpper()))
                 {
-                    ViewBag.Departamento = "Departamento está certo";
+                    ViewBag.Departamento = "Nada a Fazer";
                 }
                 else
                 {
-                    ViewBag.Departamento = "Departamento está Errado";
+                    user.Properties["department"].Value = funcionario.SECAO;
+                    //DirectoryEntry departamentonovo = new DirectoryEntry("LDAP://" + Context.ServerIp + "/OU=Users,OU=" + funcionario.SECAO + ",OU=Departamentos,OU=" 
+                    //    + removerAcentos(user.Properties["physicalDeliveryOfficeName"].Value.ToString().Substring(6)) +
+                    //    ",OU=Unidades" + ",OU=" + removerAcentos(user.Properties["l"].Value.ToString()) + ",OU=Cidades,DC=coc,DC=com,DC=br", usuariologado, senhalogado);
+                    //user.MoveTo(departamentonovo);
                 }
                 if (string.Equals(user.Properties["info"].Value.ToString().ToUpper(), funcionario.CPF.ToUpper()))
                 {
-                    ViewBag.CPF = "CPF está certo";
+                    ViewBag.CPF = "Nada a Fazer";
                 }
                 else
                 {
-                    ViewBag.CPF = "CPF está Errado";
+                    user.Properties["info"].Value = funcionario.CPF;
                 }
-            }            
+                if (string.Equals(user.Properties["physicalDeliveryOfficeName"].Value.ToString().Substring(6).ToUpper(), funcionario.FILIAL.Substring(4).ToUpper()))
+                {
+                    ViewBag.Unidade = "Nada a Fazer";
+                }
+                else
+                {
+                    user.Properties["physicalDeliveryOfficeName"].Value = "SEB - " + funcionario.FILIAL.Substring(4);                    
+                }
+                user.CommitChanges();
+            }
 
             return Json(JsonRequestBehavior.AllowGet);
         }
@@ -1011,6 +1129,11 @@ namespace SISSDV1.Controllers
         }
 
         public ActionResult Sucesso()
+        {
+            return View();
+        }
+
+        public ActionResult Erro()
         {
             return View();
         }
@@ -1061,12 +1184,83 @@ namespace SISSDV1.Controllers
                 userEntry.Properties["userAccountControl"][0] = (old_UAC & ~ADS_UF_ACCOUNTDISABLE);
                 userEntry.CommitChanges();
 
-                CloseAdConnection();
+                userEntry.Close();
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-        }     
+        }
+        //Desativar Usuário
+        public ActionResult DesativarUserDesligado(string chapa)
+        {
+            string usuariologado = Request.Cookies["Username"].Value;
+            string senhalogado = Request.Cookies["Senha"].Value;
+            try
+            {
+                // Open connection with AD domain
+                OpenAdConnection();
+
+                // Create the object "search"
+                DirectorySearcher search = new DirectorySearcher(ldapConnection);
+
+                // Add filter
+                search.Filter = "(description=*" + chapa + "*)";
+                search.SearchScope = SearchScope.Subtree;
+
+                SearchResult searchResult = search.FindOne();
+                DirectoryEntry userEntry = new DirectoryEntry(searchResult.Path, usuariologado, senhalogado);
+
+                userEntry.Properties["userAccountControl"].Value = 0x202;
+                userEntry.CommitChanges();
+
+                userEntry.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+
+        //Habilitar Usuário
+        public ActionResult HabilitarUser(string chapa)
+        {
+            string usuariologado = Request.Cookies["Username"].Value;
+            string senhalogado = Request.Cookies["Senha"].Value;
+            try
+            {
+                // Open connection with AD domain
+                OpenAdConnection();
+
+                // Create the object "search"
+                DirectorySearcher search = new DirectorySearcher(ldapConnection);
+
+                // Add filter
+                search.Filter = "(description=*" + chapa + "*)";
+                search.SearchScope = SearchScope.Subtree;
+
+                SearchResult searchResult = search.FindOne();
+                DirectoryEntry userEntry = new DirectoryEntry(searchResult.Path, usuariologado, senhalogado);
+
+                int old_UAC = (int)userEntry.Properties["userAccountControl"][0];
+
+                // AD user account disable flag
+                int ADS_UF_ACCOUNTDISABLE = 2;
+
+                // To enable an ad user account, we need to clear the disable bit/flag:
+                userEntry.Properties["userAccountControl"][0] = (old_UAC & ~ADS_UF_ACCOUNTDISABLE);
+                userEntry.CommitChanges();
+
+                userEntry.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return Json(JsonRequestBehavior.AllowGet);
+        }
     }
 }

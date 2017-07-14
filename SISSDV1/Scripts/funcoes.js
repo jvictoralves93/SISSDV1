@@ -45,7 +45,7 @@ function Buscar() {
         async: true,
         beforeSend: function () {
             //Aqui adiciona o loader
-            $("#Resultado").html("<tr><td class='text-center' colspan='4'><img src='../img/load.gif' height='60' widith='60'></td></tr>");
+            $("#Resultado").html("<tr><td class='text-center' colspan='5'><img src='../img/load.gif' height='60' widith='60'></td></tr>");
         },
         success: function (data) {
             $('#Resultado').html(data);

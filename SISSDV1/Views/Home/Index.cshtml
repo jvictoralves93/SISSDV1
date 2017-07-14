@@ -17,7 +17,7 @@
         <h3 lang="pt-br">Bem Vindo @Request.Cookies["NomeCompleto"].Value</h3>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-sm-6 col-xs-6">
+        <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="card">
                 <div class="card-header" data-background-color="green">
                     @Html.ActionLink("Funcionários", "Index", "Funcionarios")
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-xs-6">
+        <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="card">
                 <div class="card-header" data-background-color="green">
                     Active Directory
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-xs-6">
+        <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="card">
                 <div class="card-header" data-background-color="green">
                     Links
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-xs-6">
+        <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="card">
                 <div class="card-header" data-background-color="green">
                     Unidades
@@ -109,7 +109,7 @@
                 <div id="portlet2" class="panel-collapse collapse in">
                     <div class="card-body">
                         <br />
-                        @Html.Partial("~/Views/Shared/LinksUteis.cshtml")
+                        @Html.Action("LinksUteis")
                     </div>
                 </div>
             </div>

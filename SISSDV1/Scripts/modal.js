@@ -223,7 +223,7 @@ $('#modalSucesso').on('hidden.bs.modal', function () {
     $("#modalSucesso").empty();
 });
 
-//Novo Usuário
+//Sucesso
 function ModalSucesso() {
     $("#modalSucesso").modal("show");
 
@@ -244,4 +244,32 @@ function ModalSucesso() {
             $("#modalSucesso").html('<p class="error" style="position: absolute;left: 50%;top: 50%;"><strong>Opa!</strong> Não foi possível abrir a página. Tente novamente mais tarde.</p>');
         });
     $("#modalSucesso").modal("show");
+};
+
+
+$('#modalErro').on('hidden.bs.modal', function () {
+    $("#modalErro").empty();
+});
+
+//Erro
+function ModalErro() {
+    $("#modalErro").modal("show");
+
+    var url = "Erro";
+    //debugger;
+    $.ajax({
+        method: "POST",
+        url: url,
+        cache: false,
+        beforeSend: function (xhr) {
+            $("#modalErro").html('<div class="loading text-center p-40" style="position: absolute;left: 50%;top: 50%;"><img src="../img/load.gif" height="80" width="80"/></div>');
+        }
+    })
+      .done(function (html) {
+          $("#modalErro").html(html);
+      })
+        .fail(function () {
+            $("#modalErro").html('<p class="error" style="position: absolute;left: 50%;top: 50%;"><strong>Opa!</strong> Não foi possível abrir a página. Tente novamente mais tarde.</p>');
+        });
+    $("#modalErro").modal("show");
 };

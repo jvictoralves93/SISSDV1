@@ -20,15 +20,7 @@ namespace SISSDV1
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/ripples.js",
-                      "~/Scripts/material.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/bootstrapmd").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
-
-
+                    
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
                       "~/Scripts/jquery.scrollTo.min.js",
                       "~/Scripts/jquery.nicescroll.js",
@@ -40,16 +32,19 @@ namespace SISSDV1
                       "~/Scripts/jquery2.0.2.js",
                       "~/Scripts/jquery-1.10.2.js",
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/material.js",
                       "~/Scripts/modal.js",
                       "~/Scripts/filtrotabelas.js",
                       "~/Scripts/funcoes.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                        "~/Scripts/angular.js"));
+                        "~/Scripts/angular.js",
+                        "~/Scripts/jquery2.0.2.js",
+                        "~/Scripts/material-dashboard.js",
+                        "~/Scripts/material-dashboard-angular.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/bootstrap-reset.css",
                       "~/Content/jquery-ui.css",
                       "~/Content/animate.css",
                       "~/Content/style.css",

@@ -3,7 +3,7 @@
     Layout = null;
     ViewBag.Title = "Verificar";
 }
-<div class="modal-dialog modal-content card" style="width: 300px; height:200px;">
+<div class="modal-dialog modal-content card" style="width: auto; height:auto; max-height: 100%;">
     <div class="card-header" data-background-color="green">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
@@ -41,11 +41,11 @@ formverifica.submit(function ComparaUserADcomUserRM() {
         data: { chapa },
         cache: false,
         beforeSend: function (xhr) {
-            $("#modalVerificaResult").html('<div class="loading text-center p-40" style="position: absolute;left: 50%;top: 50%;"><img src="../img/load.gif" height="80" width="80"/></div>');
             $("#modalVerificar").modal("hide");
+            $("#modalVerificaResult").html('<div class="loading text-center p-40" style="position: absolute;left: 50%;top: 50%;"><img src="../img/load.gif" height="80" width="80"/></div>');
         }
     })
-      .done(function (html) {
+      .done(function (html) {          
           $("#modalVerificaResult").html(html);
           $("#modalVerificaResult").modal("show");
       })

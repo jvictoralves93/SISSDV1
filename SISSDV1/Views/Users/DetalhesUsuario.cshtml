@@ -6,17 +6,19 @@
 <div class="modal-dialog card" role="document" style="margin-top: 4%;">
     <div class="contentmodal">
         <div class="card-header" data-background-color="green">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="title">Detalhes Usuário</h4>
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+            </button>
+            Detalhes Usuário
         </div>
-        <div class="modal-body card-body">
-            <div class="row">
+        <div class="modal-body card-body" style="margin-left: 1%">
+            <div class="row" style="margin-top: -3%;">
                 <div class="form-group col-md-12">
                     <h2 id="nomeresult">@Html.DisplayFor(model => model.NomeExibicao)</h2>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-6">
                     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
                     <p id="emailresult">@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", id = "nomecompleto", disabled="disabled" } })</p>
                 </div>
@@ -80,8 +82,8 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <button onclick="modalreset();" class="btn btn-info btn-sm">Resetar Senha</button>
-                    <button onclick="verificar();" class="btn btn-danger btn-sm">Verificar Usuário</button>
+                    <button onclick="modalreset(@Model.Email);" class="btn btn-info btn-sm">Resetar Senha</button>
+                    <button onclick="verificar(@Model.Chapa);" class="btn btn-danger btn-sm">Verificar Usuário</button>
                 </div>
             </div>
         </div>

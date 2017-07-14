@@ -13,7 +13,7 @@
 <!-- Section -->
 <section class="card">
     <header class="card-header" data-background-color="green">
-        @Model.Operadora
+        @Model.Operadora.NomeOperadora
     </header>
     <div class="card-body table-responsive">
 
@@ -51,8 +51,8 @@
 
         <br />
         <div class="form-actions text-center">
-            <input type="submit" value="Confirmar" class="btn btn-Denger btn-sm" /> |
-            @Html.ActionLink("Voltar", "Index", "Unidades", new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink("Voltar", "Index", "Unidades", new { @class = "btn btn-primary btn-sm" }) |
+            <input type="submit" value="Confirmar" class="btn btn-danger btn-sm" /> 
         </div>
     }
 </section>
