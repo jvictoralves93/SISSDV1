@@ -10,105 +10,112 @@ using SISSDV1.Models;
 
 namespace SISSDV1.Controllers
 {
-    public class UnidadesController : Controller
+    public class ServidoresController : Controller
     {
         private BancoContexto db = new BancoContexto();
 
-        // GET: Unidades
+        // GET: Servidores
         public ActionResult Index()
         {
-            return View(db.Unidades.ToList().OrderBy(uni => uni.Cidade));
+            var servidors = db.Servidors.Include(s => s.Unidade);
+            return View(servidors.ToList());
         }
-        
-        // GET: Unidades/Details/5
+
+        // GET: Servidores/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Unidade unidade = db.Unidades.Include("Links").Include("LinkTelefonias")
-               .Include("Tecnicos").Include("Firewalls").Include("Servidores")
-               .Single(p => p.IDUnidade == id);
-            return View(unidade);
+            Servidor servidor = db.Servidors.Find(id);
+            if (servidor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(servidor);
         }
 
-        // GET: Unidades/Create
+        // GET: Servidores/Create
         public ActionResult Create()
         {
+            ViewBag.IDUnidade = new SelectList(db.Unidades, "IDUnidade", "NomeUnidade");
             return View();
         }
 
-        // POST: Unidades/Create
+        // POST: Servidores/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDUnidade,NomeUnidade,Cidade,TelefoneUnidade,SiteCode,Endereco,RazaoSocial,CNPJ")] Unidade unidade)
+        public ActionResult Create([Bind(Include = "IDServidor,Hostname,IP,Descricao,IDUnidade")] Servidor servidor)
         {
             if (ModelState.IsValid)
             {
-                db.Unidades.Add(unidade);
+                db.Servidors.Add(servidor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(unidade);
+            ViewBag.IDUnidade = new SelectList(db.Unidades, "IDUnidade", "NomeUnidade", servidor.IDUnidade);
+            return View(servidor);
         }
 
-        // GET: Unidades/Edit/5
+        // GET: Servidores/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Unidade unidade = db.Unidades.Find(id);
-            if (unidade == null)
+            Servidor servidor = db.Servidors.Find(id);
+            if (servidor == null)
             {
                 return HttpNotFound();
             }
-            return View(unidade);
+            ViewBag.IDUnidade = new SelectList(db.Unidades, "IDUnidade", "NomeUnidade", servidor.IDUnidade);
+            return View(servidor);
         }
 
-        // POST: Unidades/Edit/5
+        // POST: Servidores/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDUnidade,NomeUnidade,Cidade,TelefoneUnidade,SiteCode,Endereco,RazaoSocial,CNPJ")] Unidade unidade)
+        public ActionResult Edit([Bind(Include = "IDServidor,Hostname,IP,Descricao,IDUnidade")] Servidor servidor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(unidade).State = EntityState.Modified;
+                db.Entry(servidor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(unidade);
+            ViewBag.IDUnidade = new SelectList(db.Unidades, "IDUnidade", "NomeUnidade", servidor.IDUnidade);
+            return View(servidor);
         }
 
-        // GET: Unidades/Delete/5
+        // GET: Servidores/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Unidade unidade = db.Unidades.Find(id);
-            if (unidade == null)
+            Servidor servidor = db.Servidors.Find(id);
+            if (servidor == null)
             {
                 return HttpNotFound();
             }
-            return View(unidade);
+            return View(servidor);
         }
 
-        // POST: Unidades/Delete/5
+        // POST: Servidores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Unidade unidade = db.Unidades.Find(id);
-            db.Unidades.Remove(unidade);
+            Servidor servidor = db.Servidors.Find(id);
+            db.Servidors.Remove(servidor);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -121,15 +128,5 @@ namespace SISSDV1.Controllers
             }
             base.Dispose(disposing);
         }
-
-        public ActionResult Procurar(string usuarios)
-        {
-            var list = new List<Unidade>();
-            
-            list = db.Unidades.ToList();
-
-            return PartialView("Resultado", list.OrderBy(u => u.Cidade));
-        }
-
     }
 }

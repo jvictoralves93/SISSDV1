@@ -3,7 +3,7 @@
     Layout = null;
     ViewBag.Title = "Resetar Computador";
 }
-<div class="modal-dialog modal-content card" style="width: 300px; height:200px;">
+<div class="modal-dialog modal-content card" style="width: auto; height:auto; max-height: 100%;">
     <div class="card-header" data-background-color="green">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
@@ -48,7 +48,10 @@ formresethost.submit(function ResetHost() {
             success: function () {
                 $("#modalResetComp").empty();
                 $("#modalResetComp").modal("hide");
-                $("#modalSucesso").modal("show");
+                ModalSucesso();
+            },
+            error: function () {
+                ModalErro();
             }
         });
     }

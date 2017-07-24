@@ -172,9 +172,12 @@
     <Compile Include="Controllers\LinksController.cs" />
     <Compile Include="Controllers\LinkTelefoniasController.cs" />
     <Compile Include="Controllers\OperadorasController.cs" />
+    <Compile Include="Controllers\ServidoresController.cs" />
     <Compile Include="Controllers\TecnicosController.cs" />
     <Compile Include="Controllers\UnidadesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="ConvertHour\LogonTime.cs" />
+    <Compile Include="ConvertHour\PermittedLogonTime.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,6 +195,7 @@
     <Compile Include="Models\Operadora.cs" />
     <Compile Include="Models\OrganizationalUnit.cs" />
     <Compile Include="Models\Repository.cs" />
+    <Compile Include="Models\Servidor.cs" />
     <Compile Include="Models\Tecnico.cs" />
     <Compile Include="Models\Unidade.cs" />
     <Compile Include="Models\User.cs" />
@@ -1703,12 +1707,8 @@
     <Content Include="Views\Computadores\Resetar.cshtml" />
     <Content Include="Views\Computadores\Novo.cshtml" />
     <Content Include="Views\Computadores\Deletar.cshtml" />
-    <Content Include="Views\Computadores\Detalhes.cshtml" />
-    <Content Include="Views\Computadores\Editar.cshtml" />
-    <Content Include="Views\Grupos\Deletar.cshtml" />
     <Content Include="Views\Grupos\Detalhes.cshtml" />
     <Content Include="Views\Grupos\Editar.cshtml" />
-    <Content Include="Views\Grupos\Novo.cshtml" />
     <Content Include="Views\Grupos\Sucesso.cshtml" />
     <Content Include="Views\Escala\Index.cshtml" />
     <Content Include="Views\Unidades\Resultado.cshtml" />
@@ -1727,6 +1727,13 @@
     <Content Include="Views\Escala\Sucesso.cshtml" />
     <Content Include="Views\Users\ResultadoComparacao.cshtml" />
     <Content Include="Views\Users\Erro.cshtml" />
+    <Content Include="Views\Computadores\Erro.cshtml" />
+    <Content Include="Views\Grupos\Erro.cshtml" />
+    <Content Include="Views\Servidores\Create.cshtml" />
+    <Content Include="Views\Servidores\Delete.cshtml" />
+    <Content Include="Views\Servidores\Details.cshtml" />
+    <Content Include="Views\Servidores\Edit.cshtml" />
+    <Content Include="Views\Servidores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

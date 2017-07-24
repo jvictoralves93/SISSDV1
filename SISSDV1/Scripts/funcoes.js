@@ -184,17 +184,3 @@ function VerificarHost() {
         }
     });
 };
-//Busca Um tecnico
-//function BuscarTecnico() {
-//    var tecnico = $('#tecnico').val();
-//    $.ajax({
-//        url: '/Computadores/BuscaTecnico',
-//        type: "POST",
-//        dataType: "JSON",
-//        data: { tecnico},
-//        success: function (cities) {
-//            $('#tecnico').val(cities.NomeExibicao);
-//            $('#salvar').removeAttr('disabled');
-//        }
-//    });
-//};

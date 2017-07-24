@@ -38,7 +38,8 @@ function detalheModal(email) {
         method: "POST",
         url: url,
         data: { email },
-        cache: false,
+        cache: true,
+        async: true,
         beforeSend: function (xhr) {
             $("#modalDetalhes").html('<div class="loading text-center p-40" style="position: absolute;left: 50%;top: 50%;"><img src="../img/load.gif" height="80" width="80"/></div>');
         }
@@ -110,8 +111,6 @@ $('#modalEdit').on('hidden.bs.modal', function () {
 
 //Verificar Usuário;
 function verificar(chapa) {
-    $("#modalVerificar").modal("show");
-
     var url = "Verificar";
     //debugger;
     $.ajax({

@@ -17,7 +17,7 @@ namespace SISSDV1.Models
         public string NomeOperadora { get; set; }
 
         [Required(ErrorMessage = "Contato é obrigatório")]
-        [StringLength(30)]
+        [StringLength(20)]
         public string Contato { get; set; }
 
         //Relação

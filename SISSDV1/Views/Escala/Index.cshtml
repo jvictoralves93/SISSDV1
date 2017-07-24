@@ -20,14 +20,14 @@
                         <div class="clearfix"></div>
                     </div>
                     <div id="portlet2" class="panel-collapse collapse in">
-                        <div class="card-body">
+                        <div class="card-body" style="width: auto;">
                             <br />
-                            <div class='fc-event' id="João Victor">João Victor</div>
-                            <div class='fc-event' id="Giovani Neves">Giovani Neves</div>
-                            <div class='fc-event' id="Jonathan">Jonathan</div>
-                            <div class='fc-event' id="Luis">Luis</div>
-                            <div class='fc-event' id="Washington">Washington</div>
-                            <div class='fc-event' id="Guilherme">Guilherme</div>
+                            <div class='fc-event' id="João Victor" data-background-color="green">João Victor</div>
+                            <div class='fc-event' id="Giovani Neves" data-background-color="green">Giovani Neves</div>
+                            <div class='fc-event' id="Jonathan" data-background-color="green">Jonathan</div>
+                            <div class='fc-event' id="Luis" data-background-color="green">Luis</div>
+                            <div class='fc-event' id="Washington" data-background-color="green">Washington</div>
+                            <div class='fc-event' id="Guilherme" data-background-color="green">Guilherme</div>
                             <div class='fc-event' style="background-color: slategray; border-color: slategray"
                                   id="Feriado">Feriado</div>
                         </div>
@@ -44,18 +44,16 @@
                 }
             </style>
             
-            
-            <div id='calendar' class="col-md-9 col-lg-9 col-xs-9 col-sm-9"></div>
+            <div class="">
+                <div id='calendar' class="col-md-9 col-lg-9 col-xs-9 col-sm-9 fc fc-unthemed fc-ltr"></div>
+            </div>
         </div>
     </div>
 </div>
 <br />
 <div class="modal fade" id="ModalExcluir"></div>
-<div class="container">
-    <div class="modal fade" id="modalSucesso">
-        @Html.Action("Sucesso")
-    </div>
-</div>
+
+<div class="modal fade" id="modalSucesso"></div>
 
 @section scripts{
     <script src="~/Scripts/jquery-ui.js"></script>

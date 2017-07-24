@@ -27,7 +27,7 @@ namespace SISSDV1.Models
         public int Capacidade { get; set; }
 
         [Required(ErrorMessage = "Tipo não pode estar em branco")]
-        [StringLength(10)]
+        [StringLength(40)]
         [DisplayName("Tipo")]
         public string Tipo { get; set; }
 

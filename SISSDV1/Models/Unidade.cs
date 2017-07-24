@@ -14,16 +14,17 @@ namespace SISSDV1.Models
 
         [Required(ErrorMessage = "Digite o nome da Unidade")]
         [MinLength(2, ErrorMessage = "O tamanho mínimo do nome são 2 caracteres")]
-        [StringLength(80)]
+        [StringLength(50)]
         [DisplayName("Unidade")]
         public string NomeUnidade { get; set; }
 
         [Required(ErrorMessage = "Telefone é Obrigatório")]
-        [StringLength(30)]
+        [StringLength(14)]
         [DisplayName("Telefone")]
         public string TelefoneUnidade { get; set; }
         
         [DisplayName("Site Code")]
+        [Range(0, 999, ErrorMessage = "No Maximo 3 Digitos")]
         public int SiteCode { get; set; }        
 
         [StringLength(30)]
@@ -31,17 +32,17 @@ namespace SISSDV1.Models
         public string Cidade { get; set; }
 
         [Required(ErrorMessage = "Endereço é Obrigatório")]
-        [StringLength(80)]
+        [StringLength(110)]
         [DisplayName("Endereço")]
         public string Endereco { get; set; }
 
         [Required(ErrorMessage = "Razão Social é Obrigatório")]
-        [StringLength(80)]
+        [StringLength(50)]
         [DisplayName("Razão Social")]
         public string RazaoSocial { get; set; }
 
         [Required(ErrorMessage = "CNPJ é Obrigatório")]
-        [StringLength(30)]
+        [StringLength(18)]
         [DisplayName("CNPJ")]
         public string CNPJ { get; set; }
 
@@ -53,5 +54,7 @@ namespace SISSDV1.Models
         public List<LinkTelefonia> LinkTelefonias { get; set; }
 
         public List<Firewall> Firewalls { get; set; }
+
+        public List<Servidor> Servidores { get; set; }
     }
 }

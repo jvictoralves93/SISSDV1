@@ -64,7 +64,7 @@
             <div class="form-group">
                 <div class="col-md-6">
                     @Html.LabelFor(model => model.RazaoSocial, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.RazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.RazaoSocial, new { htmlAttributes = new { @class = "form-control", style = "text-transform:uppercase" } })
                     @Html.ValidationMessageFor(model => model.RazaoSocial, "", new { @class = "text-danger" })
                 </div>
             </div>

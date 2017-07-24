@@ -13,15 +13,15 @@ namespace SISSDV1.Models
         public int IDTecnico { get; set; }
 
         [Required(ErrorMessage = "Digite o Nome de Tecnico")]
-        [StringLength(80)]
+        [StringLength(50)]
         [DisplayName("Tecnico")]
         public string NomeTecnico { get; set; }
 
-        [StringLength(30)]
+        [StringLength(15)]
         [DisplayName("Celular")]
         public string Celular { get; set; }
 
-        [StringLength(30)]
+        [StringLength(15)]
         [DisplayName("Ramal")]
         public string Ramal { get; set; }
 

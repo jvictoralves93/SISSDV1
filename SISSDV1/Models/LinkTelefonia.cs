@@ -27,12 +27,12 @@ namespace SISSDV1.Models
         public string TroncoChave { get; set; }
 
         [Required(ErrorMessage = "Numeros Portados Inicio não pode estar em branco")]
-        [StringLength(30)]
+        [StringLength(120)]
         [DisplayName("Numeros Portados Inicio")]
         public string NumerosPortadosInicio { get; set; }
 
         [Required(ErrorMessage = "Numeros Portados Fim não pode estar em branco")]
-        [StringLength(30)]
+        [StringLength(120)]
         [DisplayName("Numeros Portados Fim")]
         public string NumerosPortadosFim { get; set; }
 

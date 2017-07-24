@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SISSDV1.Models.Computador>
 
 @foreach (var item in Model)
-{    
+{
     <tr class="resultado">
         <td>
             @Html.DisplayFor(i => item.NomeComputador)
@@ -14,28 +14,5 @@
             <button type="button" alt="Resetar Computador" class="btn btn-xs btn-info" onclick="ModalResetHost('@item.Hostname')"><span class="ion-ios-reload"></span></button>
             <button type="button" alt="Excluir Computador" class="btn btn-xs btn-warning" onclick="ModalDeleteHost('@item.Hostname')"><span class="ion-android-delete"></span></button>
         </td>
-
     </tr>    
-    
-@*<script>
-$(function () {
-    $.contextMenu({
-        selector: '.context-menu-one',
-        callback: function (key, options) {
-            if (key == "Resetar Host") {
-                ModalResetHost('@item.Hostname');
-            } else if (key == "Excluir") {
-                ModalDeleteHost('@item.Hostname');
-            }
-        },
-        items: {
-            //"Editar": { name: "Editar", icon: "edit", },
-            "Resetar Host": { name: "Resetar Host", icon: "reply" },
-            "Excluir": { name: "Excluir", icon: "delete" },
-            //"Detalhes": { name: "Detalhes", icon: "details" },
-        }
-    });
-
-});
-</script>*@
 }

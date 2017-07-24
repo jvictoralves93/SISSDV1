@@ -175,4 +175,39 @@
         </table>
     </div>
 </section>
+
+<!-- Servidores Section -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        Servidores
+    </header>
+    <div class="card-body table-responsive">
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-success">
+                    <th>Nome do Servidor</th>
+                    <th>IP</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            @foreach (var servidores in Model.Servidores)
+            {
+                <tbody>
+                    <tr>
+                        <td>@servidores.Hostname</td>
+                        <td>@servidores.IP</td>
+                        <td>@servidores.Descricao</td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</section>
 <br />
+
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IDUnidade }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>
+

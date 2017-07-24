@@ -12,6 +12,7 @@ namespace SISSDV1.Models
         [Key]
         public int IDFirewall { get; set; }
 
+        [Required(ErrorMessage = "Digite o Modelo")]
         [StringLength(30)]
         [DisplayName("Modelo")]
         public string Modelo { get; set; }
@@ -19,11 +20,13 @@ namespace SISSDV1.Models
         [DisplayName("Licença")]
         public DateTime Licenca { get; set; }
 
-        [StringLength(30)]
+        [Required(ErrorMessage = "Digite o IP")]
+        [StringLength(15)]
         [DisplayName("Acesso Interno")]
         public string AcessoInterno { get; set; }
 
-        [StringLength(30)]
+        [Required(ErrorMessage = "Digite o IP")]
+        [StringLength(15)]
         [DisplayName("Acesso Externo")]
         public string AcessoExterno { get; set; }
 

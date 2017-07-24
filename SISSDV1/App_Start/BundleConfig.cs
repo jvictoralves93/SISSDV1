@@ -31,20 +31,18 @@ namespace SISSDV1
                       "~/Scripts/jquery-3.1.0.min.js",
                       "~/Scripts/jquery2.0.2.js",
                       "~/Scripts/jquery-1.10.2.js",
-                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap.js",                      
                       "~/Scripts/material.js",
                       "~/Scripts/modal.js",
                       "~/Scripts/filtrotabelas.js",
                       "~/Scripts/funcoes.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                        "~/Scripts/angular.js",
-                        "~/Scripts/jquery2.0.2.js",
-                        "~/Scripts/material-dashboard.js",
-                        "~/Scripts/material-dashboard-angular.js"));
+                        "~/Scripts/angular.js",                        
+                        "~/Scripts/material-dashboard.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.css",                      
                       "~/Content/jquery-ui.css",
                       "~/Content/animate.css",
                       "~/Content/style.css",

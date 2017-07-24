@@ -1,0 +1,71 @@
+﻿@model SISSDV1.Models.Servidor
+
+@{
+    ViewBag.Title = "Novo Servidor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Request.Cookies["Acesso"] == null)
+    {
+        Response.Redirect("Index");
+    }
+}
+
+<br />
+<!-- Section -->
+<div class="card">
+    <header class="card-header" data-background-color="green">
+        Criar Servidor
+    </header>
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "Servidores", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.Hostname, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Hostname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Hostname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.IP, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.IP, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.IP, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.IDUnidade, "Unidade", htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("IDUnidade", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IDUnidade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12" style="margin-top: 2%">
+                    <div class="pull-right">
+                        @Html.ActionLink("Voltar", "Index", "Servidores", new { @class = "btn btn-danger btn-sm" })
+                        <input type="submit" value="Salvar" class="btn btn-primary btn-sm" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

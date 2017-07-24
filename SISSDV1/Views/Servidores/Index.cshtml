@@ -1,0 +1,168 @@
+﻿@model IEnumerable<SISSDV1.Models.Servidor>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (Request.Cookies["Acesso"] == null)
+    {
+        <!-- Tecnicos -->
+        <br />
+        <section class="card">
+            <header class="card-header" data-background-color="green">
+                Servidor
+            </header>
+            <div class="card-body table-responsive">
+                <table class="table table-hover" id="tabela">
+                    <thead>
+                        <tr class="text-success">
+                            <th>
+                                @Html.DisplayNameFor(model => model.Unidade.Cidade)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Unidade.NomeUnidade)
+                            </th>
+                            <th width="100px">
+                                @Html.DisplayNameFor(model => model.Hostname)
+                            </th>
+                            <th width="130px">
+                                @Html.DisplayNameFor(model => model.IP)
+                            </th>
+                            <th width="130px">
+                                @Html.DisplayNameFor(model => model.Descricao)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="form-group">
+                                <input type="text" name="filtroCidade" class="form-control" placeholder="Cidade" />
+                            </td>
+                            <td class="form-group">
+                                <input type="text" name="filtroUnidade" class="form-control" placeholder="Unidade" />
+                            </td>
+                            <td class="form-group">
+                                <input type="text" name="filtroHostname" class="form-control" placeholder="Hostname" />
+                            </td>
+                            <td class="form-group">
+                                <input type="text" name="filtroIP" class="form-control" placeholder="IP" />
+                            </td>
+                            <td class="form-group">
+                                <input type="text" name="filtroDescricao" class="form-control" placeholder="Descrição" />
+                            </td>
+                            <td></td>
+                        </tr>
+                        @foreach (var item in Model)
+                {
+                            <tr style="cursor: pointer" id="resultado" onclick="location.href='Details/'+'@item.IDServidor'">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Unidade.Cidade)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Unidade.NomeUnidade)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Hostname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IP)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descricao)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <br />
+    }
+    else
+    {
+        <br />
+        <p>
+            @Html.ActionLink("Novo Servidor", "Create", "Servidores", new { @class = "btn btn-primary btn-sm bloqueio" })
+        </p>
+        <!-- Tecnicos -->
+        <br />
+        <section class="card">
+            <header class="card-header" data-background-color="green">
+                Servidores
+            </header>
+            <div class="card-body table-responsive">
+                <table class="table table-hover" id="tabela">
+                    <thead>
+                        <tr class="text-success">
+                            <th>
+                                @Html.DisplayNameFor(model => model.Unidade.Cidade)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Unidade.NomeUnidade)
+                            </th>
+                            <th width="100px">
+                                @Html.DisplayNameFor(model => model.Hostname)
+                            </th>
+                            <th width="130px">
+                                @Html.DisplayNameFor(model => model.IP)
+                            </th>
+                            <th width="130px">
+                                @Html.DisplayNameFor(model => model.Descricao)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" name="filtroCidade" class="form-control" placeholder="Cidade" />
+                            </td>
+                            <td>
+                                <input type="text" name="filtroUnidade" class="form-control" placeholder="Unidade" />
+                            </td>
+                            <td>
+                                <input type="text" name="filtroHostname" class="form-control" placeholder="Hostname" />
+                            </td>
+                            <td>
+                                <input type="text" name="filtroIP" class="form-control" placeholder="IP" />
+                            </td>
+                            <td>
+                                <input type="text" name="filtroDescricao" class="form-control" placeholder="Descrição" />
+                            </td>
+                            <td></td>
+                        </tr>
+                        @foreach (var item in Model)
+                {
+                            <tr style="cursor: pointer" id="resultado" onclick="location.href='Details/'+'@item.IDServidor'">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Unidade.Cidade)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Unidade.NomeUnidade)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Hostname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IP)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descricao)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.IDServidor }, new { @class = "btn btn-primary btn-xs bloqueio" })
+                                    @Html.ActionLink("Detalhes", "Details", new { id = item.IDServidor }, new { @class = "btn btn-info btn-xs" })
+                                    @Html.ActionLink("Excluir", "Delete", new { id = item.IDServidor }, new { @class = "btn btn-danger btn-xs bloqueio" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <br />
+    }
+}

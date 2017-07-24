@@ -50,8 +50,8 @@ formverifica.submit(function ComparaUserADcomUserRM() {
           $("#modalVerificaResult").modal("show");
       })
         .fail(function () {
-            $("#modalVerificaResult").html('<p class="error" style="position: absolute;left: 50%;top: 50%;"><strong>Opa!</strong> Não foi possível abrir a página. Tente novamente mais tarde.</p>');
-        });
+            ModalErro();
+      });
     $("#modalVerificaResult").modal("show");
     return false;
 });

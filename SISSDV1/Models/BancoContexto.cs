@@ -9,7 +9,7 @@ namespace SISSDV1.Models
     public class BancoContexto : DbContext
     {
     
-        public BancoContexto() : base("NovaBase")
+        public BancoContexto() : base("SisSD")
         {
         }
         
@@ -26,5 +26,7 @@ namespace SISSDV1.Models
         public DbSet<Firewall> Firewalls { get; set; }
 
         public DbSet<EscalaSabado> Escalas { get; set; }
+
+        public DbSet<Servidor> Servidors { get; set; }
     }
 }

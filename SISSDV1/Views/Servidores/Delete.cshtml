@@ -1,0 +1,53 @@
+﻿@model SISSDV1.Models.Servidor
+
+@{
+    ViewBag.Title = "Excluir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Request.Cookies["Acesso"] == null)
+    {
+        Response.Redirect("Index");
+    }
+}
+
+<br />
+<!-- Section -->
+<section class="card">
+    <header class="card-header" data-background-color="green">
+        @Model.Hostname
+    </header>
+    <div class="card-body table-responsive">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Unidade.Cidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.Unidade.NomeUnidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.Hostname)</th>
+                    <th>@Html.DisplayNameFor(model => model.IP)</th>
+                    <th>@Html.DisplayNameFor(model => model.Descricao)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>@Html.DisplayFor(model => model.Unidade.Cidade)</th>
+                    <td>@Html.DisplayFor(model => model.Unidade.NomeUnidade)</td>
+                    <td>@Html.DisplayFor(model => model.Hostname)</td>
+                    <td>@Html.DisplayFor(model => model.IP)</td>
+                    <td>@Html.DisplayFor(model => model.Descricao)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @using (Html.BeginForm("Delete", "Servidores", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <br />
+        <div class="form-actions text-center">
+            @Html.ActionLink("Voltar", "Index", "Servidores", new { @class = "btn btn-primary btn-sm" }) |
+            <input type="submit" value="Confirmar" class="btn btn-danger btn-sm" />
+        </div>
+    }
+</section>
+<br />

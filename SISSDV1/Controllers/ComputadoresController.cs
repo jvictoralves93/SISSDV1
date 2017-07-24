@@ -160,6 +160,7 @@ namespace SISSDV1.Controllers
                     {
                         Computador computador = new Computador();
                         computador.NomeComputador = r.Properties["cn"][0].ToString();
+                        computador.Hostname = r.Properties["name"][0].ToString();
                         try
                         {
                             computador.SistemaOperacional = r.Properties["OperatingSystem"][0].ToString();
@@ -392,60 +393,10 @@ namespace SISSDV1.Controllers
             }
         }
 
-        //Retorna o Json Para Preencher o Gerente
-        //public ActionResult BuscaTecnico(string tecnico)
-        //{
-        //    var buscado = new User();
-        //    buscado = ProcurarTecnico(tecnico);
-        //    return Json(buscado, JsonRequestBehavior.AllowGet);
-        //}
+        public ActionResult Erro()
+        {
+            return View();
+        }
 
-        //Procurar Tecnico
-        //[HttpPost]
-        //public User ProcurarTecnico(string tecnico)
-        //{
-        //    //Lista de Usuários
-        //    User resultado = new User();
-
-        //    //Função
-        //    try
-        //    {
-        //        //Abre conexão com o AD
-        //        OpenAdConnection();
-        //        // Cria o objeto search
-        //        DirectorySearcher search = new DirectorySearcher(ldapConnection);
-
-        //        // Adiciona Filtro
-        //        search.Filter = "(|(displayName=*" + tecnico + "*)(userPrincipalName=*" + tecnico + "*))";
-        //        search.SearchScope = SearchScope.Subtree;
-        //        SearchResultCollection resultCol = search.FindAll();
-
-        //        // Checa se achou algo
-        //        if (resultCol != null)
-        //        {
-        //            foreach (SearchResult r in resultCol)
-        //            {
-        //                resultado.NomeExibicao = r.Properties["cn"][0].ToString();
-        //                resultado.OU.Ou = r.Properties["distinguishedName"][0].ToString();
-        //            }
-        //        }
-        //        return resultado;
-        //    }
-        //    catch
-        //    {
-        //        return resultado;
-        //    }
-        //}
-
-        //public ActionResult Editar()
-        //{
-        //    var cidades = new List<Models.OrganizationalUnit>();
-        //    ViewBag.Cidade = new SelectList(cidades, "Cidade", "Cidade");
-        //    var unidades = new List<OrganizationalUnit>();
-        //    ViewBag.Unidade = new SelectList(unidades, "Unidade", "Unidade");
-        //    var departamentos = new List<OrganizationalUnit>();
-        //    ViewBag.Departamento = new SelectList(departamentos, "Departamento", "Departamento");
-        //    return PartialView();
-        //}
     }
 }

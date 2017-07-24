@@ -123,7 +123,7 @@ namespace SISSDV1.Controllers
                         }
                         catch
                         {
-                            user.Email = "Sem chapa";
+                            user.Chapa = "Sem chapa";
                         }
                         try
                         {
@@ -200,6 +200,7 @@ namespace SISSDV1.Controllers
                 search.Filter = "(&(sAMAccountType=805306368)(|(displayName=*" + usuarios+"*)"
                     +"(userPrincipalName=*"+ usuarios+ "*)(title=*" + usuarios + "*)))";
                 search.SearchScope = SearchScope.Subtree;
+                search.Asynchronous = true;
                 SearchResultCollection resultCol = search.FindAll();
 
                 // Checa se achou algo
@@ -214,7 +215,7 @@ namespace SISSDV1.Controllers
                         }
                         catch
                         {
-                            user.Email = "Sem Chapa";
+                            user.Chapa = "Sem Chapa";
                         }
                         try
                         {
@@ -290,7 +291,7 @@ namespace SISSDV1.Controllers
 
         //Novo Usuário
         [HttpPost]
-        public ActionResult CriarUsuario(string nome, string sobrenome, string diainicio, string diafim, string horarioinicio, string horariofim, string username, string cargo, string cpf, string telefone,
+        public ActionResult CriarUsuario(string nome, string sobrenome, string username, string cargo, string cpf, string telefone,
             string chapa, string senha, string cidade, string unidade, string departamento, string subdepartamento)
         {
             //Dados Conexão AD
@@ -428,6 +429,7 @@ namespace SISSDV1.Controllers
                 // Adiciona Filtro
                 search.Filter = "(&(sAMAccountType=805306368)(displayName=*USR MOD*))";
                 search.SearchScope = SearchScope.Subtree;
+                search.Asynchronous = true;
                 SearchResultCollection resultCol = search.FindAll();
 
                 // Checa se achou algo
@@ -478,6 +480,7 @@ namespace SISSDV1.Controllers
                 // Adiciona Filtro
                 search.Filter = "(samAccountName="+username+")";
                 search.SearchScope = SearchScope.Subtree;
+                search.Asynchronous = true;
                 SearchResultCollection resultCol = search.FindAll();
 
                 // Checa se achou algo
@@ -528,6 +531,7 @@ namespace SISSDV1.Controllers
                 //Filtro de Pesquisa                
                 search.Filter = "(objectClass=organizationalUnit)";
                 search.SearchScope = SearchScope.OneLevel;
+                search.Asynchronous = true;
                 SearchResultCollection resultCol = search.FindAll();
 
                 if (resultCol != null)
@@ -574,6 +578,7 @@ namespace SISSDV1.Controllers
                 //Filtro de Pesquisa                
                 search.Filter = "(objectClass=organizationalUnit)";
                 search.SearchScope = SearchScope.OneLevel;
+                search.Asynchronous = true;
                 SearchResultCollection resultCol = search.FindAll();
 
                 if (resultCol != null)
@@ -621,6 +626,7 @@ namespace SISSDV1.Controllers
                 //Filtro de Pesquisa                
                 search.Filter = "(objectClass=organizationalUnit)";
                 search.SearchScope = SearchScope.OneLevel;
+                search.Asynchronous = true;
                 SearchResultCollection resultCol = search.FindAll();
 
                 if (resultCol != null)
@@ -669,6 +675,7 @@ namespace SISSDV1.Controllers
                 // Adiciona Filtro
                 search.Filter = "(|(displayName=*" + Gerente + "*)(userPrincipalName=*" + Gerente + "*)(distinguishedName="+Gerente+"))";
                 search.SearchScope = SearchScope.Subtree;
+                search.Asynchronous = true;
                 SearchResultCollection resultCol = search.FindAll();
 
                 // Checa se achou algo
@@ -720,6 +727,7 @@ namespace SISSDV1.Controllers
                 // Adiciona Filtro
                 search.Filter = "(samAccountName=" + usuario + ")";
                 search.SearchScope = SearchScope.Subtree;
+                search.Asynchronous = true;
                 SearchResultCollection resultCol = search.FindAll();
 
                 // Checa se achou algo
@@ -771,6 +779,7 @@ namespace SISSDV1.Controllers
                 // Adiciona Filtro
                 search.Filter = "(userPrincipalName=*" + email + "*)";
                 search.SearchScope = SearchScope.Subtree;
+                search.Asynchronous = true;
                 SearchResultCollection resultCol = search.FindAll();
 
                 // Checa se achou algo
@@ -784,7 +793,6 @@ namespace SISSDV1.Controllers
                         resultado.Email = r.Properties["mail"][0].ToString();
                         resultado.Cargo = r.Properties["title"][0].ToString();
                         resultado.Username = r.Properties["sAMAccountName"][0].ToString();
-                        resultado.Chapa = r.Properties["description"][0].ToString();
                         try
                         {
                             resultado.CPF = r.Properties["info"][0].ToString();
@@ -792,6 +800,14 @@ namespace SISSDV1.Controllers
                         catch
                         {
                             resultado.CPF = "Sem CPF";
+                        }
+                        try
+                        {
+                            resultado.Chapa = r.Properties["description"][0].ToString();
+                        }
+                        catch
+                        {
+                            resultado.Chapa = "Sem chapa";
                         }
                         resultado.SubDepartamento = r.Properties["department"][0].ToString();
                         resultado.Pais = r.Properties["c"][0].ToString();
@@ -897,7 +913,7 @@ namespace SISSDV1.Controllers
                 // Add filter
                 search.Filter = "(userPrincipalName=*" + username + "*)";
                 search.SearchScope = SearchScope.Subtree;
-
+                search.Asynchronous = true;
 
                 SearchResult searchResult = search.FindOne();
 
@@ -970,6 +986,7 @@ namespace SISSDV1.Controllers
                 // Add filter
                 search.Filter = "(description=*" + chapa + "*)";
                 search.SearchScope = SearchScope.Subtree;
+                search.Asynchronous = true;
 
                 SearchResult searchResult = search.FindOne();
 
@@ -1062,6 +1079,7 @@ namespace SISSDV1.Controllers
             // Add filter
             search.Filter = "(description=*" + chapa + "*)";
             search.SearchScope = SearchScope.Subtree;
+            search.Asynchronous = true;
 
             SearchResult searchResult = search.FindOne();
 
@@ -1171,6 +1189,7 @@ namespace SISSDV1.Controllers
                 // Add filter
                 search.Filter = string.Format("(anr={0})", usuario);
                 search.SearchScope = SearchScope.Subtree;
+                search.Asynchronous = true;
 
                 SearchResult searchResult = search.FindOne();
                 DirectoryEntry userEntry = searchResult.GetDirectoryEntry();
@@ -1207,6 +1226,7 @@ namespace SISSDV1.Controllers
                 // Add filter
                 search.Filter = "(description=*" + chapa + "*)";
                 search.SearchScope = SearchScope.Subtree;
+                search.Asynchronous = true;
 
                 SearchResult searchResult = search.FindOne();
                 DirectoryEntry userEntry = new DirectoryEntry(searchResult.Path, usuariologado, senhalogado);
@@ -1240,6 +1260,7 @@ namespace SISSDV1.Controllers
                 // Add filter
                 search.Filter = "(description=*" + chapa + "*)";
                 search.SearchScope = SearchScope.Subtree;
+                search.Asynchronous = true;
 
                 SearchResult searchResult = search.FindOne();
                 DirectoryEntry userEntry = new DirectoryEntry(searchResult.Path, usuariologado, senhalogado);

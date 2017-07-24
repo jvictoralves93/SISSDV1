@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-<div class="modal-dialog modal-content card" style="width: 400px; height:200px;">
+<div class="modal-dialog modal-content card" style="width: auto; height:auto; max-height: 100%;">
     <div class="card-header" data-background-color="green">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
@@ -18,7 +18,7 @@
 
         <div class="row">
             <div class="">
-                <div class="pull-right" style="margin-top: 2%;">
+                <div class="text-center" style="margin-top: 2%;">
                     <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
                     <input type="button" value="Confirmar" class="btn btn-primary btn-sm" id="Confirmar" onclick="ExcluirEvento();" />
                 </div>
@@ -43,7 +43,7 @@
             if (response.status == 'success')
             $('#calendar').fullCalendar('removeEvent', id);
             $("#ModalExcluir").modal("hide");
-            $("#modalSucesso").modal("show");
+            ModalSucesso();
         },
         error: function (e) {
             alert('Error processing your request: ' + e.responseText);
